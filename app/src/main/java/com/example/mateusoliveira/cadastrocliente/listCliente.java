@@ -9,7 +9,7 @@ public class listCliente extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_cliente);
+        setContentView(R.layout.list_cliente);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Clientes");
