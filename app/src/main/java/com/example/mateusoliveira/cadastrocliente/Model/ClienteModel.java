@@ -1,40 +1,37 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
-import com.example.mateusoliveira.cadastrocliente.Dao.DaoEndereco;
-
 import java.util.Date;
 
-public class Cliente {
-    public static final String DATABASE_NAME_CLIENTE = "clientes";
+public class ClienteModel {
+    private String nome;
+    private String cpf;
+    private Date datanascimento;
+
+    private EnderecoModel enderecoModel;
+    private StringBuilder builder;
+
+    public static final String TABLE_NAME_CLIENTE = "clientes";
     public static final String ID = "id";
     public static final String NOME = "nome";
     public static final String CPF = "cpf";
     public static final String DATA_NASCIMENTO = "dataNascimento";
 
-    private Endereco endereco;
-    private String nome;
-    private String cpf;
-    private Date datanascimento;
-
-    private StringBuilder builder;
-
-
     public String createDataBase() {
-      builder.append("create database ").append(DATABASE_NAME_CLIENTE).append("(").append(
+      builder.append("create database ").append(TABLE_NAME_CLIENTE).append("(").append(
                 ID ).append("INTEGER primary key,").append(
                 NOME).append("TEXT NOT NULL, ").append(
                 CPF ).append("TEXT NOT NULL,").append(
                 DATA_NASCIMENTO).append("TEXT NOT NULL,").append(
-                "FOREIGN KEY(endereco_id) REFERENCES").append(endereco.DATABASE_NAME_ENDERECO).append("(").append(endereco.ID).append( "),");
+                "FOREIGN KEY(endereco_id) REFERENCES").append(enderecoModel.TABLE_NAME_ENDERECO).append("(").append(enderecoModel.ID).append( "),");
 
       return builder.toString();
     }
 
-    public Cliente(String nome, String cpf, Date datanascimento, Endereco endereco) {
+    public ClienteModel(String nome, String cpf, Date datanascimento, EnderecoModel enderecoModel) {
         this.nome = nome;
         this.cpf = cpf;
         this.datanascimento = datanascimento;
-        this.endereco = endereco;
+        this.enderecoModel = enderecoModel;
     }
 
     public String getNome() {
@@ -61,11 +58,11 @@ public class Cliente {
         this.datanascimento = datanascimento;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public EnderecoModel getEnderecoModel() {
+        return enderecoModel;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEnderecoModel(EnderecoModel enderecoModel) {
+        this.enderecoModel = enderecoModel;
     }
 }

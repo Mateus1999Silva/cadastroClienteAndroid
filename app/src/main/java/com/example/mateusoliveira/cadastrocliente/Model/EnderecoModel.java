@@ -1,7 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
-public class Endereco {
-    public static final String DATABASE_NAME_ENDERECO = "endereco";
+public class EnderecoModel {
+    public static final String TABLE_NAME_ENDERECO = "endereco";
     public static final String ID = "id";
     public static final String CEP = "cep";
     public static final String LOGRADOURO = "logradouro";
@@ -19,7 +19,7 @@ public class Endereco {
     private StringBuilder builder;
 
     public String createTable() {
-       builder.append("CREATE TABLE").append(DATABASE_NAME_ENDERECO).append("(").append(
+       builder.append("CREATE TABLE").append(TABLE_NAME_ENDERECO).append("(").append(
         ID).append("INTEGER PRIMARY KEY AUTOINCREMENT,").append(
         CEP ).append("TEXT NOT NULL,").append(
         LOGRADOURO).append("TEXT NOT NULL,").append(
