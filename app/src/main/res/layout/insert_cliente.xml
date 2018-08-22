@@ -52,13 +52,34 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/ediCpf"
+            android:id="@+id/editCpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textCpf"
             app:layout_constraintRight_toRightOf="parent"
             android:hint="Digite seu cpf"
             style="@style/StyleEditTextForm"/>
+
+
+        <Button
+            android:id="@+id/buttonCalendario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calendario"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editCpf"
+            />
+
+        <TextView
+            android:id="@+id/textDataNascimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/StyleTextView"
+            android:text="Data Nascimento"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonCalendario"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textCep"
@@ -68,7 +89,7 @@
             android:text="Cep"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ediCpf"/>
+            app:layout_constraintTop_toBottomOf="@+id/textDataNascimento"/>
 
         <EditText
             android:id="@+id/editCep"
@@ -150,5 +171,16 @@
             app:layout_constraintTop_toBottomOf="@id/textEstado"
             app:layout_constraintRight_toRightOf="parent"
             style="@style/StyleEditTextForm" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar"
+            app:layout_constraintTop_toBottomOf="@id/editEstado"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

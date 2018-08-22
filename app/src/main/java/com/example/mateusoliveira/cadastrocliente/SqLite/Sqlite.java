@@ -22,7 +22,7 @@ public class Sqlite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(enderecoModel.createTable());
-        db.execSQL(clienteModel.createDataBase());
+        db.execSQL(clienteModel.createTable());
     }
 
     @Override

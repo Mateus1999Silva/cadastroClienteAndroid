@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.SqLite.Sqlite;
 
+import java.text.SimpleDateFormat;
+
 public class ClienteDao {
 
     private Context context;
@@ -16,13 +18,17 @@ public class ClienteDao {
     public ClienteDao(Context context){
         this.context = context;
     }
-    
+
     public ContentValues converterParaContentValues(ClienteModel clienteModel) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(cliente.NOME, clienteModel.getNome() );
         contentValues.put(cliente.CPF, clienteModel.getCpf());
-        //contentValues.put(clienteModel.DATA_NASCIMENTO, clienteModel.getDatanascimento().toString());
-       return contentValues;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = simpleDateFormat.format(cliente.getDatanascimento());
+        contentValues.put(cliente.DATA_NASCIMENTO, date);
+
+        return contentValues;
     }
 
    public void createUser(ClienteModel clienteModel){

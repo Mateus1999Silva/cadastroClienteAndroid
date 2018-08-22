@@ -15,7 +15,7 @@ public class EnderecoModel {
     private String bairro;
     private String numero;
     private String estado;
-
+    private ClienteModel cliente;
     private StringBuilder builder;
 
     public String createTable() {
@@ -25,7 +25,8 @@ public class EnderecoModel {
         LOGRADOURO).append("TEXT NOT NULL,").append(
         BAIRRO).append("TEXT NOT NULL ,").append(
         NUMERO).append("TEXT NOT NULL ,").append(
-        ESTADO).append("TEXT NOT NULL);");
+        ESTADO).append("TEXT NOT NULL);").append(
+               "FOREIGN KEY(cliente_id) REFERENCES").append(cliente.TABLE_NAME_CLIENTE).append("(").append(cliente.ID).append( "),");
 
        return builder.toString();
     }
@@ -76,5 +77,13 @@ public class EnderecoModel {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public ClienteModel getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteModel cliente) {
+        this.cliente = cliente;
     }
 }
