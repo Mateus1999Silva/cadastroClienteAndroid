@@ -1,6 +1,16 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
 public class EnderecoModel {
+
+    private int id;
+    private String cep;
+    private String logradouro;
+    private String bairro;
+    private String numero;
+    private String estado;
+    private ClienteModel cliente;
+    private StringBuilder builder = new StringBuilder();
+
     public static final String TABLE_NAME_ENDERECO = "endereco";
     public static final String ID = "id";
     public static final String CEP = "cep";
@@ -8,27 +18,20 @@ public class EnderecoModel {
     public static final String BAIRRO = "bairro";
     public static final String ESTADO = "estado";
     public static final String NUMERO = "numero";
-
-    private int id;
-    private int cep;
-    private String logradouro;
-    private String bairro;
-    private String numero;
-    private String estado;
-    private ClienteModel cliente;
-    private StringBuilder builder;
+    public static final String ID_CLIENTE = "id_cliente";
 
     public String createTable() {
-       builder.append("CREATE TABLE").append(TABLE_NAME_ENDERECO).append("(").append(
-        ID).append("INTEGER PRIMARY KEY AUTOINCREMENT,").append(
-        CEP ).append("TEXT NOT NULL,").append(
-        LOGRADOURO).append("TEXT NOT NULL,").append(
-        BAIRRO).append("TEXT NOT NULL ,").append(
-        NUMERO).append("TEXT NOT NULL ,").append(
-        ESTADO).append("TEXT NOT NULL);").append(
-               "FOREIGN KEY(cliente_id) REFERENCES").append(cliente.TABLE_NAME_CLIENTE).append("(").append(cliente.ID).append( "),");
+        builder.append("CREATE TABLE ").append(TABLE_NAME_ENDERECO).append("(").append(
+                ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT,").append(
+                CEP).append(" TEXT NOT NULL,").append(
+                LOGRADOURO).append(" TEXT NOT NULL,").append(
+                BAIRRO).append(" TEXT NOT NULL ,").append(
+                NUMERO).append(" TEXT NOT NULL ,").append(
+                ESTADO).append(" TEXT NOT NULL,").append(
+                ID_CLIENTE).append("TEXT NOT NULL,").append(
+                "FOREIGN KEY(").append(ID_CLIENTE).append("REFERENCES ").append(cliente.TABLE_NAME_CLIENTE).append("(").append(cliente.ID).append("));");
 
-       return builder.toString();
+        return builder.toString();
     }
 
     public int getId() {
@@ -39,11 +42,11 @@ public class EnderecoModel {
         this.id = id;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

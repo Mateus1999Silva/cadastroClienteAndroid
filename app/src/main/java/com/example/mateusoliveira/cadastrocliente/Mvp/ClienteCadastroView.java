@@ -4,14 +4,18 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,8 +35,23 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.textDataNascimento)
     TextView txtDataNascimento;
 
+    @BindView(R.id.editCep)
+    EditText cep;
+
+    @BindView(R.id.editEstado)
+    EditText estado;
+
+    @BindView(R.id.editBairro)
+    EditText bairro;
+
+    @BindView(R.id.editLogradouro)
+    EditText logradouro;
+
+    @BindView(R.id.editNumero)
+    EditText numero;
+
     private Calendar calendario;
-    private DatePickerDialog datePicker;
+    private DatePickerDialog datePickerDialog;
     private ClienteCadastroContrato.clienteCadastroPresenter presenter;
 
     @Override
@@ -44,29 +63,32 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         presenter.setView(ClienteCadastroView.this);
     }
 
+    public void datePicker() {
+        calendario = Calendar.getInstance();
+        int day = calendario.get(Calendar.DAY_OF_MONTH);
+        int month = calendario.get(Calendar.MONTH);
+        final int year = calendario.get(Calendar.YEAR);
 
-//    @OnClick(R.id.buttonCalendario)
-//    public Date datePicker(){
-//        calendario = Calendar.getInstance();
-//        int day = calendario.get(Calendar.DAY_OF_MONTH);
-//        int month = calendario.get(Calendar.MONTH);
-//        final int year = calendario.get(Calendar.YEAR);
-//
-//        datePicker = new DatePickerDialog(ClienteCadastroView.this, new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-//               Calendar date = Calendar.getInstance();
-//               date.add(Calendar.MONTH, mMonth);
-//               date.add(Calendar.DAY_OF_MONTH, mDay);
-//               date.add(Calendar.YEAR, mYear);
-//            }
-//        },day ,month,year);
-//        datePicker.show();
-//    }
+        datePickerDialog = new DatePickerDialog(ClienteCadastroView.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
+                Calendar date = Calendar.getInstance();
+                date.set(mYear, mMonth, mDay);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                txtDataNascimento.setText(sdf.format(date.getTime()));
+            }
+        }, year, month, day);
+        datePickerDialog.show();
+    }
 
-    @Override
-    public void openList() {
-        Toast.makeText(this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+    @OnClick(R.id.textDataNascimento)
+    public void dataNascimento(){
+        datePicker();
+    }
+
+    @OnClick(R.id.button)
+    public void insertCliente(){
+        presenter.insert();
     }
 
     @Override
@@ -84,8 +106,33 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         return cpf;
     }
 
-    @OnClick(R.id.button)
-    public void insertCliente(){
-            presenter.insert();
+    @Override
+    public TextView getDataNascimento() {
+        return txtDataNascimento;
+    }
+
+    @Override
+    public EditText getCep() {
+        return cep;
+    }
+
+    @Override
+    public EditText getBairro() {
+        return bairro;
+    }
+
+    @Override
+    public EditText getNumero() {
+        return numero;
+    }
+
+    @Override
+    public EditText getEstado() {
+        return estado;
+    }
+
+    @Override
+    public EditText getLogradrouro() {
+        return logradouro;
     }
 }

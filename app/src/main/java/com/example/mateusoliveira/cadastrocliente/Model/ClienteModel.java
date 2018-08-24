@@ -1,12 +1,15 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
+import android.util.Log;
+
 import java.util.Date;
 
 public class ClienteModel {
+    private int id;
     private String nome;
     private String cpf;
     private Date datanascimento;
-    private StringBuilder builder;
+    private StringBuilder builder = new StringBuilder();
 
     public static final String TABLE_NAME_CLIENTE = "clientes";
     public static final String ID = "id";
@@ -15,11 +18,11 @@ public class ClienteModel {
     public static final String DATA_NASCIMENTO = "dataNascimento";
 
     public String createTable() {
-      builder.append("create database ").append(TABLE_NAME_CLIENTE).append("(").append(
-                ID ).append("INTEGER primary key,").append(
-                NOME).append("TEXT NOT NULL, ").append(
-                CPF ).append("TEXT NOT NULL,").append(
-                DATA_NASCIMENTO).append("TEXT NOT NULL,");
+      builder.append(" CREATE TABLE ").append(TABLE_NAME_CLIENTE).append("(").append(
+            ID ).append(" INTEGER PRIMARY KEY AUTOINCREMENT ,").append(
+            NOME).append(" TEXT NOT NULL, ").append(
+            CPF ).append(" TEXT NOT NULL,").append(
+            DATA_NASCIMENTO).append(" TEXT NOT NULL);");
 
       return builder.toString();
     }
@@ -28,10 +31,19 @@ public class ClienteModel {
 
     }
 
-    public ClienteModel(String nome, String cpf, Date datanascimento) {
+    public ClienteModel(String nome, String cpf, Date datanascimento, int id) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.datanascimento = datanascimento;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

@@ -12,8 +12,8 @@ public class Sqlite extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "cliente";
 
-    private EnderecoModel enderecoModel;
-    private ClienteModel clienteModel;
+    private EnderecoModel enderecoModel = new EnderecoModel();
+    private ClienteModel clienteModel = new ClienteModel();
 
     public Sqlite(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,8 +21,8 @@ public class Sqlite extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(enderecoModel.createTable());
         db.execSQL(clienteModel.createTable());
+        db.execSQL(enderecoModel.createTable());
     }
 
     @Override
