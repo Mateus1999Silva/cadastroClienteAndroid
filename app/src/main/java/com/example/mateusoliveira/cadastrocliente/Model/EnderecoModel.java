@@ -1,5 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
+import java.util.List;
+
 public class EnderecoModel {
 
     private int id;
@@ -8,7 +10,7 @@ public class EnderecoModel {
     private String bairro;
     private String numero;
     private String estado;
-    private ClienteModel cliente;
+    private long cliente;
     private StringBuilder builder = new StringBuilder();
 
     public static final String TABLE_NAME_ENDERECO = "endereco";
@@ -28,8 +30,8 @@ public class EnderecoModel {
                 BAIRRO).append(" TEXT NOT NULL ,").append(
                 NUMERO).append(" TEXT NOT NULL ,").append(
                 ESTADO).append(" TEXT NOT NULL,").append(
-                ID_CLIENTE).append("TEXT NOT NULL,").append(
-                "FOREIGN KEY(").append(ID_CLIENTE).append("REFERENCES ").append(cliente.TABLE_NAME_CLIENTE).append("(").append(cliente.ID).append("));");
+                ID_CLIENTE).append(" TEXT NOT NULL,").append(
+                "FOREIGN KEY(").append(ID_CLIENTE).append(") REFERENCES ").append(ClienteModel.TABLE_NAME_CLIENTE).append("(").append(ClienteModel.ID).append("));");
 
         return builder.toString();
     }
@@ -82,11 +84,11 @@ public class EnderecoModel {
         this.estado = estado;
     }
 
-    public ClienteModel getCliente() {
+    public long getCliente() {
         return cliente;
     }
 
-    public void setCliente(ClienteModel cliente) {
+    public void setCliente(long cliente) {
         this.cliente = cliente;
     }
 }

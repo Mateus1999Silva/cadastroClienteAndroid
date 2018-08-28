@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
+import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 
 import java.util.List;
 
@@ -20,13 +21,13 @@ public interface ClienteCadastroContrato {
         EditText getEstado();
         EditText getLogradrouro();
 
+
     }
     interface clienteCadastroPresenter{
         void setView(ClienteCadastroView view);
         void insert();
         List<ClienteModel> readClientes();
         ClienteModel readCliente(int id);
-
-
+       //List<EnderecoModel> coutn();
     }
 }

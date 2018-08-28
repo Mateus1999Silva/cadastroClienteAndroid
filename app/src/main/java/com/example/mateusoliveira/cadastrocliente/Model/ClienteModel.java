@@ -3,12 +3,14 @@ package com.example.mateusoliveira.cadastrocliente.Model;
 import android.util.Log;
 
 import java.util.Date;
+import java.util.List;
 
 public class ClienteModel {
-    private int id;
+    private long id;
     private String nome;
     private String cpf;
     private Date datanascimento;
+    private EnderecoModel enderecoCliente;
     private StringBuilder builder = new StringBuilder();
 
     public static final String TABLE_NAME_CLIENTE = "clientes";
@@ -19,7 +21,7 @@ public class ClienteModel {
 
     public String createTable() {
       builder.append(" CREATE TABLE ").append(TABLE_NAME_CLIENTE).append("(").append(
-            ID ).append(" INTEGER PRIMARY KEY AUTOINCREMENT ,").append(
+            ID ).append(" INTEGER PRIMARY KEY AUTOINCREMENT,").append(
             NOME).append(" TEXT NOT NULL, ").append(
             CPF ).append(" TEXT NOT NULL,").append(
             DATA_NASCIMENTO).append(" TEXT NOT NULL);");
@@ -38,11 +40,11 @@ public class ClienteModel {
         this.datanascimento = datanascimento;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -68,5 +70,13 @@ public class ClienteModel {
 
     public void setDatanascimento(Date datanascimento) {
         this.datanascimento = datanascimento;
+    }
+
+    public EnderecoModel getEnderecoCliente() {
+        return enderecoCliente;
+    }
+
+    public void setEnderecoCliente(EnderecoModel enderecoCliente) {
+        this.enderecoCliente = enderecoCliente;
     }
 }

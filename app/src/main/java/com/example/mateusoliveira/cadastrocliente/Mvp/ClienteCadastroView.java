@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
+import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.R;
 
 import java.text.SimpleDateFormat;
@@ -82,12 +84,20 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     }
 
     @OnClick(R.id.textDataNascimento)
-    public void dataNascimento(){
+    public void dataNascimento() {
         datePicker();
     }
 
+//    @OnClick(R.id.cadastrar)
+//    public void cadastrar(){
+//        Log.i("clienteid", String.valueOf(presenter.readClientes().size()));
+//        for (ClienteModel enderecoModel:presenter.readClientes()){
+//            Log.i("clienteid", String.valueOf(enderecoModel.getEnderecoCliente().getId()));
+//        }
+//    }
+
     @OnClick(R.id.button)
-    public void insertCliente(){
+    public void insertCliente() {
         presenter.insert();
     }
 
@@ -135,4 +145,5 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     public EditText getLogradrouro() {
         return logradouro;
     }
+
 }

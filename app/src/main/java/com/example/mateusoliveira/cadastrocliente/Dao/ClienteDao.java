@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
+import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.SqLite.Sqlite;
 
 import java.text.ParseException;
@@ -18,6 +19,7 @@ public class ClienteDao {
     private Context context;
     private ClienteModel cliente;
     private StringBuilder stringBuilder;
+    private EnderecoModel endereco;
 
     public ClienteDao(Context context) {
         this.context = context;
@@ -31,16 +33,16 @@ public class ClienteDao {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String date = simpleDateFormat.format(clienteModel.getDatanascimento());
-
         contentValues.put(cliente.DATA_NASCIMENTO, date);
         return contentValues;
     }
 
-    public int createUser(ClienteModel clienteModel) {
+    public long createUser(ClienteModel clienteModel) {
         try {
             Sqlite dmHelper = new Sqlite(this.context);
             SQLiteDatabase db = dmHelper.getWritableDatabase();
-            db.insert(cliente.TABLE_NAME_CLIENTE, null, converterParaContentValues(clienteModel));
+            long id = db.insert(cliente.TABLE_NAME_CLIENTE, null, converterParaContentValues(clienteModel));
+            clienteModel.setId(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,19 +55,47 @@ public class ClienteDao {
         SQLiteDatabase db = mdHelper.getWritableDatabase();
 
         stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT * FROM ").append(cliente.TABLE_NAME_CLIENTE);
-        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
+        stringBuilder.append("SELECT * FROM ").append(
+                ClienteModel.TABLE_NAME_CLIENTE).append(
+                " INNER JOIN ").append(
+                EnderecoModel.TABLE_NAME_ENDERECO).append(
+                " ON ").append(
+                ClienteModel.TABLE_NAME_CLIENTE).append(
+                ".").append(
+                ClienteModel.ID).append(
+                " = ").append(
+                EnderecoModel.TABLE_NAME_ENDERECO).append(
+                ".").append(
+                EnderecoModel.ID_CLIENTE).append(
+                ";");
 
+        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
         if (cursor.moveToFirst()) {
             do {
-                Integer id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(cliente.ID)));
-                String nome = cursor.getString(cursor.getColumnIndex(cliente.NOME));
-                String cpf = cursor.getString(cursor.getColumnIndex(cliente.CPF));
+                Integer idCliente = Integer.parseInt(cursor.getString(cursor.getColumnIndex(cliente.ID)));
+                String nomeCliente = cursor.getString(cursor.getColumnIndex(cliente.NOME));
+                String cpfCliente = cursor.getString(cursor.getColumnIndex(cliente.CPF));
+
+                Integer idEndereco = Integer.parseInt(cursor.getString(cursor.getColumnIndex(endereco.ID)));
+                String cep = cursor.getString(cursor.getColumnIndex(endereco.CEP));
+                String bairro = cursor.getString(cursor.getColumnIndex(endereco.BAIRRO));
+                String numero = cursor.getString(cursor.getColumnIndex(endereco.NUMERO));
+                String estado = cursor.getString(cursor.getColumnIndex(endereco.ESTADO));
+                String logradouro = cursor.getString(cursor.getColumnIndex(endereco.LOGRADOURO));
 
                 cliente = new ClienteModel();
-                cliente.setId(id);
-                cliente.setNome(nome);
-                cliente.setCpf(cpf);
+                cliente.setId(idCliente);
+                cliente.setNome(nomeCliente);
+                cliente.setCpf(cpfCliente);
+
+                endereco = new EnderecoModel();
+                endereco.setId(idEndereco);
+                endereco.setCep(cep);
+                endereco.setEstado(estado);
+                endereco.setLogradouro(logradouro);
+                endereco.setNumero(numero);
+                endereco.setBairro(bairro);
+                cliente.setEnderecoCliente(endereco);
 
                 clientes.add(cliente);
             } while (cursor.moveToNext());
@@ -76,31 +106,84 @@ public class ClienteDao {
         return clientes;
     }
 
-    public ClienteModel readCliente(int id){
+    public ClienteModel readClienteId(int id) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         stringBuilder = new StringBuilder();
         stringBuilder.append("SELECT * FROM clientes WHERE id = ").append(id);
 
         Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
-        if(cursor.moveToFirst()){
-            String nome = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
-            String cpf = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
-            String datanascimento = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
+        if (cursor.moveToFirst()) {
+            do {
+                Integer idCliente  = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ClienteModel.ID)));
+                String nomeCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
+                String cpfCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
+                String datanascimentoCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
 
-            cliente = new ClienteModel();
-            cliente.setId(id);
-            cliente.setNome(nome);
-            cliente.setCpf(cpf);
+                Integer idEndereco = Integer.parseInt(cursor.getString(cursor.getColumnIndex(endereco.ID)));
+                String cep = cursor.getString(cursor.getColumnIndex(endereco.CEP));
+                String bairro = cursor.getString(cursor.getColumnIndex(endereco.BAIRRO));
+                String numero = cursor.getString(cursor.getColumnIndex(endereco.NUMERO));
+                String estado = cursor.getString(cursor.getColumnIndex(endereco.ESTADO));
+                String logradouro = cursor.getString(cursor.getColumnIndex(endereco.LOGRADOURO));
 
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                cliente.setDatanascimento(sdf.parse(datanascimento));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+                cliente = new ClienteModel();
+                cliente.setId(idCliente);
+                cliente.setNome(nomeCliente);
+                cliente.setCpf(cpfCliente);
+
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    cliente.setDatanascimento(sdf.parse(datanascimentoCliente));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                endereco = new EnderecoModel();
+                endereco.setId(idEndereco);
+                endereco.setCep(cep);
+                endereco.setEstado(estado);
+                endereco.setLogradouro(logradouro);
+                endereco.setNumero(numero);
+                endereco.setBairro(bairro);
+                cliente.setEnderecoCliente(endereco);
+            } while (cursor.moveToNext());
         }
         return cliente;
     }
+
+    public List<ClienteModel> readCliente() {
+        List<ClienteModel> clienteList = new ArrayList();
+        Sqlite dmHelper = new Sqlite(this.context);
+        SQLiteDatabase db = dmHelper.getWritableDatabase();
+        stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT * FROM clientes");
+
+        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
+        if (cursor.moveToFirst()) {
+            do {
+                String id = cursor.getString(cursor.getColumnIndex(ClienteModel.ID));
+                String nome = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
+                String cpf = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
+                String dataNascimento = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
+
+                cliente = new ClienteModel();
+                cliente.setId(Long.parseLong(id));
+                cliente.setNome(nome);
+                cliente.setCpf(cpf);
+
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    cliente.setDatanascimento(sdf.parse(dataNascimento));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                clienteList.add(cliente);
+            } while (cursor.moveToNext());
+        }
+        return clienteList;
+    }
 }
+
 
