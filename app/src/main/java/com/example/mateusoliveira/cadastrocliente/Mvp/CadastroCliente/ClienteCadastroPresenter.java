@@ -1,12 +1,11 @@
-package com.example.mateusoliveira.cadastrocliente.Mvp;
+package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
-import com.example.mateusoliveira.cadastrocliente.ListCliente;
+import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 
@@ -36,7 +35,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
             enderecoDao.createAddres(createEnderecoModel(cliente));
 
             Toast.makeText(view.getContext(), "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this.view.getContext(), ListCliente.class);
+            Intent intent = new Intent(this.view.getContext(), ListClienteView.class);
             view.getContext().startActivity(intent);
 
         } catch (Exception e) {

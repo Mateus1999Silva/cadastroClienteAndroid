@@ -2,10 +2,11 @@ package com.example.mateusoliveira.cadastrocliente.Model;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class ClienteModel {
+public class ClienteModel implements Serializable {
     private long id;
     private String nome;
     private String cpf;

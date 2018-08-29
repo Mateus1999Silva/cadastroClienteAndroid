@@ -152,38 +152,31 @@ public class ClienteDao {
         return cliente;
     }
 
-    public List<ClienteModel> readCliente() {
-        List<ClienteModel> clienteList = new ArrayList();
-        Sqlite dmHelper = new Sqlite(this.context);
-        SQLiteDatabase db = dmHelper.getWritableDatabase();
-        stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT * FROM clientes");
-
-        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
-        if (cursor.moveToFirst()) {
-            do {
-                String id = cursor.getString(cursor.getColumnIndex(ClienteModel.ID));
-                String nome = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
-                String cpf = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
-                String dataNascimento = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
-
-                cliente = new ClienteModel();
-                cliente.setId(Long.parseLong(id));
-                cliente.setNome(nome);
-                cliente.setCpf(cpf);
-
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                    cliente.setDatanascimento(sdf.parse(dataNascimento));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                clienteList.add(cliente);
-            } while (cursor.moveToNext());
-        }
-        return clienteList;
-    }
+//    public List<ModelList> readCliente() {
+//        List<ModelList> clienteList = new ArrayList();
+//        Sqlite dmHelper = new Sqlite(this.context);
+//        SQLiteDatabase db = dmHelper.getWritableDatabase();
+//        stringBuilder = new StringBuilder();
+//        stringBuilder.append("SELECT * FROM clientes");
+//
+//        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
+//        if (cursor.moveToFirst()) {
+//            do {
+//                String id = cursor.getString(cursor.getColumnIndex(ClienteModel.ID));
+//                String nome = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
+//                String cpf = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
+//                String dataNascimento = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
+//
+//                ModelList clienteDados = new ModelList();
+//                clienteDados.setId(Long.parseLong(id));
+//                clienteDados.setNome(nome);
+//                clienteDados.setCpf(cpf);
+//
+//                clienteList.add(clienteDados);
+//            } while (cursor.moveToNext());
+//        }
+//        return clienteList;
+//    }
 }
 
 

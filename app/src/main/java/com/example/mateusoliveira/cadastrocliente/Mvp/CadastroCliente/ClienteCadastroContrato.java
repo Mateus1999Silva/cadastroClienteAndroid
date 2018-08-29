@@ -1,11 +1,10 @@
-package com.example.mateusoliveira.cadastrocliente.Mvp;
+package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Context;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
-import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 
 import java.util.List;
 

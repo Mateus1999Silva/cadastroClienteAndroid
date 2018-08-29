@@ -1,8 +1,9 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EnderecoModel {
+public class EnderecoModel implements Serializable{
 
     private int id;
     private String cep;
