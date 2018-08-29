@@ -12,6 +12,7 @@ import com.example.mateusoliveira.cadastrocliente.SqLite.Sqlite;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ClienteDao {
@@ -75,6 +76,7 @@ public class ClienteDao {
                 Integer idCliente = Integer.parseInt(cursor.getString(cursor.getColumnIndex(cliente.ID)));
                 String nomeCliente = cursor.getString(cursor.getColumnIndex(cliente.NOME));
                 String cpfCliente = cursor.getString(cursor.getColumnIndex(cliente.CPF));
+                String dataNascimentoCliente = cursor.getString(cursor.getColumnIndex(cliente.DATA_NASCIMENTO));
 
                 Integer idEndereco = Integer.parseInt(cursor.getString(cursor.getColumnIndex(endereco.ID)));
                 String cep = cursor.getString(cursor.getColumnIndex(endereco.CEP));
@@ -87,6 +89,14 @@ public class ClienteDao {
                 cliente.setId(idCliente);
                 cliente.setNome(nomeCliente);
                 cliente.setCpf(cpfCliente);
+
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    Date data = sdf.parse(dataNascimentoCliente);
+                    cliente.setDatanascimento(data);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 endereco = new EnderecoModel();
                 endereco.setId(idEndereco);

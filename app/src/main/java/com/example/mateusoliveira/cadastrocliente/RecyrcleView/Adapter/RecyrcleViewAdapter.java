@@ -35,7 +35,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.item_recycleview, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view, context, dados);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -61,13 +61,8 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
         @BindView(R.id.textNome)
         TextView txtNome;
 
-        List<ClienteModel> dadosClick;
-        Context contextClick;
-
-        public ViewHolder(View itemView, Context context, List<ClienteModel> dados) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            this.dadosClick = dados;
-            this.contextClick = context;
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
         }
@@ -75,14 +70,13 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            ClienteModel clienteModel = this.dadosClick.get(position);
+            ClienteModel clienteModel = dados.get(position);
             Intent intent = new Intent(context, DescricaoClienteView.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable("cliente", (Serializable)clienteModel);
             bundle.putSerializable("endereco", (Serializable)clienteModel.getEnderecoCliente());
             intent.putExtras(bundle);
             context.startActivity(intent);
-
         }
     }
 }

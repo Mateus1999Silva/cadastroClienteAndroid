@@ -1,5 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,9 +9,13 @@ public class EnderecoModel implements Serializable{
 
     private int id;
     private String cep;
+    @SerializedName("logradouro")
     private String logradouro;
+    @SerializedName("bairro")
     private String bairro;
+    @SerializedName("numero")
     private String numero;
+    @SerializedName("estado")
     private String estado;
     private long cliente;
     private StringBuilder builder = new StringBuilder();
