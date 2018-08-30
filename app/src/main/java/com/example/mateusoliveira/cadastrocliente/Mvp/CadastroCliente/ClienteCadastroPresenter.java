@@ -3,22 +3,25 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
 import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
+import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ClienteCadastroPresenter implements ClienteCadastroContrato.clienteCadastroPresenter {
+public class ClienteCadastroPresenter implements ClienteCadastroContrato.clienteCadastroPresenter, SyncResult {
     private ClienteCadastroContrato.clienteCadastroView view;
     private ClienteDao clienteDao;
     private EnderecoDao enderecoDao;
     private Date data = null;
+    ApiRequest apiRequest = new ApiRequest(this);
 
     @Override
     public void setView(ClienteCadastroView view) {
@@ -80,6 +83,24 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
         clienteDao = new ClienteDao(view.getContext());
         ClienteModel cliente = clienteDao.readClienteId(id);
         return cliente;
+    }
+
+    @Override
+    public void apiCep() {
+        apiRequest.getEndereco(view.getCep().getText().toString());
+    }
+
+    @Override
+    public void onSucess() {
+        EnderecoModel enderecoModel = apiRequest.getEnderecoModel();
+        view.setBairro(enderecoModel.getBairro());
+        view.setEstado(enderecoModel.getEstado());
+        view.setLogradrouro(enderecoModel.getLogradouro());
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 
 //    @Override

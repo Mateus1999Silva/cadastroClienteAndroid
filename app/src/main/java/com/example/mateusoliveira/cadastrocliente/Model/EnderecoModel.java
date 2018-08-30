@@ -13,9 +13,8 @@ public class EnderecoModel implements Serializable{
     private String logradouro;
     @SerializedName("bairro")
     private String bairro;
-    @SerializedName("numero")
     private String numero;
-    @SerializedName("estado")
+    @SerializedName("localidade")
     private String estado;
     private long cliente;
     private StringBuilder builder = new StringBuilder();

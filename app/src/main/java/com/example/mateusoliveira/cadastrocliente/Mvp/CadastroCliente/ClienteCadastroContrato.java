@@ -19,6 +19,11 @@ public interface ClienteCadastroContrato {
         EditText getNumero();
         EditText getEstado();
         EditText getLogradrouro();
+        void setBairro(String bairro);
+        void setEstado(String estado);
+        void setLogradrouro(String logradouro);
+        void cep();
+
 
 
     }
@@ -28,5 +33,6 @@ public interface ClienteCadastroContrato {
         List<ClienteModel> readClientes();
         ClienteModel readCliente(int id);
        //List<EnderecoModel> coutn();
+        void apiCep();
     }
 }

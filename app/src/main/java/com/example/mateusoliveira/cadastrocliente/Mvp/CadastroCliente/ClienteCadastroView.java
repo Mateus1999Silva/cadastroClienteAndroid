@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnLongClick;
 
 public class ClienteCadastroView extends AppCompatActivity implements ClienteCadastroContrato.clienteCadastroView {
 
@@ -91,6 +94,12 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
 //        }
 //    }
 
+    @OnFocusChange(R.id.editLogradouro)
+    @Override
+    public void cep() {
+        presenter.apiCep();
+    }
+
     @OnClick(R.id.button)
     public void insertCliente() {
         presenter.insert();
@@ -139,6 +148,21 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @Override
     public EditText getLogradrouro() {
         return logradouro;
+    }
+
+    @Override
+    public void setBairro(String bairro) {
+        this.bairro.setText(bairro);
+    }
+
+    @Override
+    public void setEstado(String estado) {
+        this.estado.setText(estado);
+    }
+
+    @Override
+    public void setLogradrouro(String logradouro) {
+        this.logradouro.setText(logradouro);
     }
 
 }

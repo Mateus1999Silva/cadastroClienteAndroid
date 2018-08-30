@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiEndereco {
-    public static final String BASE_URL = "https://viacep.com.br/ws/08190420/json/";
+    public static final String BASE_URL = "https://viacep.com.br/ws/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(){
