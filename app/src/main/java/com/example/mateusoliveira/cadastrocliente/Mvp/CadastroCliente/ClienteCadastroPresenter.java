@@ -1,6 +1,8 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
@@ -10,7 +12,11 @@ import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteVie
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

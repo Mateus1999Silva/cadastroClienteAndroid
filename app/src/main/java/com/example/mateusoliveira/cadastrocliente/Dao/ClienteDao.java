@@ -162,6 +162,13 @@ public class ClienteDao {
         return cliente;
     }
 
+    public boolean update(ClienteModel cliente){
+        Sqlite dmHelper = new Sqlite(this.context);
+        SQLiteDatabase db = dmHelper.getWritableDatabase();
+        db.update(ClienteModel.TABLE_NAME_CLIENTE, converterParaContentValues(cliente),"ID = ?",new String[] { String.valueOf(cliente.getId())});
+        return true;
+    }
+
 //    public List<ModelList> readCliente() {
 //        List<ModelList> clienteList = new ArrayList();
 //        Sqlite dmHelper = new Sqlite(this.context);

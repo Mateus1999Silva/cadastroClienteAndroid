@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.SqLite.Sqlite;
 
@@ -100,5 +101,12 @@ public class EnderecoDao {
             } while (cursor.moveToNext());
         }
         return enderecoList;
+    }
+
+    public boolean update(EnderecoModel endereco){
+        Sqlite dmHelper = new Sqlite(this.context);
+        SQLiteDatabase db = dmHelper.getWritableDatabase();
+        db.update(EnderecoModel.TABLE_NAME_ENDERECO, converterParaContentValues(endereco),"ID = ?",new String[] { String.valueOf(endereco.getId())});
+        return true;
     }
 }
