@@ -79,7 +79,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
             public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
                 Calendar date = Calendar.getInstance();
                 date.set(mYear, mMonth, mDay);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 txtDataNascimento.setText(sdf.format(date.getTime()));
             }
         }, year, month, day);

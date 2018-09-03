@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente.ClienteCadastroView;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
 
-public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView{
+public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView {
 
     @BindView(R.id.editNomeCompleto)
     EditText txtNome;
@@ -54,7 +55,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @BindView(R.id.editEstado)
     EditText txtEstado;
 
-    private DescricaoClientePresenter presenter;
+    private DescricaoClienteContrato.DescricaoClientePresenter presenter;
     private DatePickerDialog datePickerDialog;
 
     @Override
@@ -62,9 +63,9 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         super.onCreate(savedInstanceState);
         setContentView(R.layout.descricao_cliente);
         ButterKnife.bind(this);
-        preencherDados();
         presenter = new DescricaoClientePresenter();
         presenter.setView(this);
+        preencherDados();
     }
 
     @Override
@@ -81,29 +82,41 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         return true;
     }
 
-//    public void datPicker(){
-//
-//        Calendar calendar = Calendar.getInstance();
-//        int year = calendar.get(Calendar.YEAR);
-//        int month = calendar.get(Calendar.MONTH);
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker datePicker, int dYear, int dMonth, int mDayOfMonth) {
-//                String data = txtDataNascimento.getText().toString();
-//                datePickerDialog.setD
-//            }
-//        },year,month,day);
-//
-//    }
+    public void datePicker(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int dYear, int dMonth, int mDayOfMonth) {
+                Calendar dataUsuario = Calendar.getInstance();
+                dataUsuario.set(dYear, dMonth, mDayOfMonth);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                txtDataNascimento.setText(sdf.format(dataUsuario.getTime()));
+            }
+        },year,month,day);
+        datePickerDialog.show();
+    }
+
+    @OnClick(R.id.textDataNascimento)
+    public void txtDataNascimento(){
+        datePicker();
+    }
+
+    @OnFocusChange(R.id.editLogradouro)
+    public void cep(){
+        presenter.cep();
+    }
 
 
     @Override
     public void preencherDados() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        EnderecoModel enderecoModel =(EnderecoModel) bundle.getSerializable("endereco");
+        EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
         ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
         presenter.preencherDados(clienteModel, enderecoModel);
     }
@@ -113,7 +126,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     public void editarCliente() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        EnderecoModel enderecoModel =(EnderecoModel) bundle.getSerializable("endereco");
+        EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
         ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
         presenter.editarCliente(clienteModel.getId(), enderecoModel.getId());
     }

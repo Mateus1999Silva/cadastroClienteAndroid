@@ -2,19 +2,22 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Intent;
 
+import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
+import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DescricaoClientePresenter implements DescricaoClienteContrato.DescricaoClientePresenter {
+public class DescricaoClientePresenter implements DescricaoClienteContrato.DescricaoClientePresenter, SyncResult {
 
     private DescricaoClienteContrato.DescricaoClienteView view;
+    private ApiRequest apiRequest;
 
     @Override
     public void setView(DescricaoClienteContrato.DescricaoClienteView view) {
@@ -42,15 +45,33 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     public void preencherDados(ClienteModel clienteModel, EnderecoModel enderecoModel) {
         view.setNome(clienteModel.getNome());
         view.setCpf(clienteModel.getCpf());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String data = sdf.format(clienteModel.getDatanascimento());
         view.setDataNascimento(data);
-
         view.setCep(enderecoModel.getCep());
         view.setBairro(enderecoModel.getBairro());
         view.setNumero(enderecoModel.getNumero());
         view.setLogradrouro(enderecoModel.getLogradouro());
         view.setEstado(enderecoModel.getEstado());
+    }
+
+    @Override
+    public void cep() {
+        apiRequest = new ApiRequest(this);
+        apiRequest.getEndereco(view.getCep().getText().toString());
+    }
+
+    @Override
+    public void onSucess() {
+        EnderecoModel enderecoModel = apiRequest.getEnderecoModel();
+        view.setLogradrouro(enderecoModel.getLogradouro());
+        view.setEstado(enderecoModel.getEstado());
+        view.setBairro(enderecoModel.getBairro());
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 
     @Override
@@ -77,7 +98,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         clienteModel.setNome(view.getNome().getText().toString());
 
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             clienteModel.setDatanascimento(sdf.parse(view.getDataNascimento().getText().toString()));
         } catch (ParseException e) {
             e.printStackTrace();

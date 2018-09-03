@@ -14,6 +14,7 @@ public interface DescricaoClienteContrato {
         void getInformacoesMapa();
         void editarCliente(long idCliente, long idEndereco);
         void preencherDados(ClienteModel clienteModel , EnderecoModel enderecoModel);
+        void cep();
     }
 
     interface DescricaoClienteView{

@@ -32,7 +32,7 @@ public class ClienteDao {
         contentValues.put(cliente.NOME, clienteModel.getNome());
         contentValues.put(cliente.CPF, clienteModel.getCpf());
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(clienteModel.getDatanascimento());
         contentValues.put(cliente.DATA_NASCIMENTO, date);
         return contentValues;
@@ -91,7 +91,7 @@ public class ClienteDao {
                 cliente.setCpf(cpfCliente);
 
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Date data = sdf.parse(dataNascimentoCliente);
                     cliente.setDatanascimento(data);
                 } catch (ParseException e) {
@@ -143,7 +143,7 @@ public class ClienteDao {
                 cliente.setCpf(cpfCliente);
 
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     cliente.setDatanascimento(sdf.parse(datanascimentoCliente));
                 } catch (ParseException e) {
                     e.printStackTrace();

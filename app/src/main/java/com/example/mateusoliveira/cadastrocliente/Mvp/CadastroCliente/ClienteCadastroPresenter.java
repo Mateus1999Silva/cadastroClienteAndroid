@@ -57,7 +57,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
         cliente.setNome(this.view.getNome().getText().toString());
         cliente.setCpf(this.view.getCpf().getText().toString());
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             data = sdf.parse(this.view.getDataNascimento().getText().toString());
             cliente.setDatanascimento(data);
         } catch (ParseException e) {
@@ -108,14 +108,4 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
     public void onFailure() {
 
     }
-
-//    @Override
-//    public List<EnderecoModel> coutn() {
-//        clienteDao = new ClienteDao(view.getContext());
-//        List<ClienteModel>  cliente = clienteDao.countCliente();
-//
-//        enderecoDao = new EnderecoDao(view.getContext());
-//        List<EnderecoModel> endereco = enderecoDao.readEndereco();
-//        return  endereco;
-//    }
 }
