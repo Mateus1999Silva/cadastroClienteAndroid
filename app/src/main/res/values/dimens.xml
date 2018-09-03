@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_Big">15dp</dimen>
+    <dimen name="radius_Medium">10dp</dimen>
+    <dimen name="radius_Small">5dp</dimen>
+</resources>

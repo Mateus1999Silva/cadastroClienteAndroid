@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">CadastroCliente</string>
     <string name="google_maps_key">AIzaSyArcMjKm-sJ4qV0EPHa-83t_asN59Vmq5c</string>
+
+    <string name="textViewTitleUpdate">Dados Cliente</string>
+    <string name="textViewNome">Nome Completo</string>
+    <string name="textViewCpf">Cpf</string>
+    <string name="textViewCep">Cep</string>
+    <string name="textViewLogradouro">Logradouro</string>
+    <string name="textViewBairro">Bairro</string>
+    <string name="textViewNumero">Numero</string>
+    <string name="textViewEstado">Estado</string>
+    <string name="textData">dd/MM/yyyy</string>
+
+    <string name="editViewTitleInsert">Cadastro Cliente</string>
+    <string name="editViewNome">Digite seu nome completo</string>
+    <string name="editViewCpf">Digite seu Cpf</string>
+    <string name="editViewCep">Digite seu Cep</string>
+    <string name="editViewNumero">Numero</string>
+    <string name="editButtonUpdate">Editar</string>
+
+
+    <string name="titleButtonUpdate">Editar</string>
+    <string name="titleButtonInsert">Cadastrar</string>
 </resources>

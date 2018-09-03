@@ -4,30 +4,25 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
-import com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente.ClienteCadastroView;
-import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
 import com.example.mateusoliveira.cadastrocliente.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
 public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView {
 
@@ -54,6 +49,9 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @BindView(R.id.editEstado)
     EditText txtEstado;
+
+    @BindView(R.id.loading)
+    ProgressBar progressBar;
 
     private DescricaoClienteContrato.DescricaoClientePresenter presenter;
     private DatePickerDialog datePickerDialog;
@@ -82,7 +80,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         return true;
     }
 
-    public void datePicker(){
+    public void datePicker() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -97,20 +95,20 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 txtDataNascimento.setText(sdf.format(dataUsuario.getTime()));
             }
-        },year,month,day);
+        }, year, month, day);
         datePickerDialog.show();
     }
 
     @OnClick(R.id.textDataNascimento)
-    public void txtDataNascimento(){
+    public void txtDataNascimento() {
         datePicker();
     }
 
-    @OnFocusChange(R.id.editLogradouro)
-    public void cep(){
+    @OnClick(R.id.editLogradouro)
+    public void cep() {
+        progressBar.setVisibility(View.VISIBLE);
         presenter.cep();
     }
-
 
     @Override
     public void preencherDados() {
@@ -129,6 +127,11 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
         ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
         presenter.editarCliente(clienteModel.getId(), enderecoModel.getId());
+    }
+
+    @Override
+    public ProgressBar progress() {
+        return progressBar;
     }
 
     @Override

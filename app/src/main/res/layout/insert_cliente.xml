@@ -9,15 +9,22 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Cadastro cliente"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:textColor="#000"
+            android:text="@string/editViewTitleInsert"
+            style="@style/textViewTitle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -27,7 +34,7 @@
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome Completo"
+            android:text="@string/textViewNome"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -36,7 +43,7 @@
             android:id="@+id/editNomeCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite seu nome"
+            android:hint="@string/editViewNome"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto"
             style="@style/StyleEditTextForm" />
@@ -46,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Cpf"
+            android:text="@string/textViewCpf"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editNomeCompleto"
             app:layout_constraintStart_toStartOf="parent" />
@@ -57,7 +64,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textCpf"
             app:layout_constraintRight_toRightOf="parent"
-            android:hint="Digite seu cpf"
+            android:hint="@string/editViewCpf"
             style="@style/StyleEditTextForm"/>
 
         <TextView
@@ -65,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:hint="dd/MM/yyyy"
+            android:hint="@string/textData"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCpf"
             app:layout_constraintStart_toStartOf="parent" />
@@ -75,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Cep"
+            android:text="@string/textViewCep"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textDataNascimento"/>
@@ -86,7 +93,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textCep"
             app:layout_constraintRight_toRightOf="parent"
-            android:hint="digite seu cep"
+            android:hint="@string/editViewCep"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -94,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Logradouro"
+            android:text="@string/textViewLogradouro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCep"/>
@@ -112,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Bairro"
+            android:text="@string/textViewBairro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editLogradouro"/>
@@ -130,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Numero"
+            android:text="@string/textViewNumero"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editBairro"/>
@@ -148,7 +155,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
-            android:text="Estado"
+            android:text="@string/textViewEstado"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editNumero"/>
@@ -165,16 +172,13 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cadastrar"
+            android:text="@string/titleButtonInsert"
             app:layout_constraintTop_toBottomOf="@id/editEstado"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
-        <!--<Button-->
-            <!--android:id="@+id/cadastrar"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/title"/>-->
+            style="@style/StyleButton"
+            android:background="@drawable/style_button"/>
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.editNumero)
     EditText numero;
 
+    @BindView(R.id.loading)
+    ProgressBar progressBar;
+
     private Calendar calendario;
     private DatePickerDialog datePickerDialog;
     private ClienteCadastroContrato.clienteCadastroPresenter presenter;
@@ -91,17 +96,10 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         datePicker();
     }
 
-//    @OnClick(R.id.cadastrar)
-//    public void cadastrar(){
-//        Log.i("clienteid", String.valueOf(presenter.readClientes().size()));
-//        for (ClienteModel enderecoModel:presenter.readClientes()){
-//            Log.i("clienteid", String.valueOf(enderecoModel.getEnderecoCliente().getId()));
-//        }
-//    }
-
-    @OnFocusChange(R.id.editLogradouro)
+    @OnClick(R.id.editLogradouro)
     @Override
     public void cep() {
+        progress().setVisibility(View.VISIBLE);
         presenter.apiCep();
     }
 
@@ -168,6 +166,11 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @Override
     public void setLogradrouro(String logradouro) {
         this.logradouro.setText(logradouro);
+    }
+
+    @Override
+    public ProgressBar progress() {
+        return progressBar;
     }
 
 }

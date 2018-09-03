@@ -2,6 +2,7 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Context;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
@@ -22,6 +23,7 @@ public interface ClienteCadastroContrato {
         void setBairro(String bairro);
         void setEstado(String estado);
         void setLogradrouro(String logradouro);
+        ProgressBar progress();
         void cep();
 
 

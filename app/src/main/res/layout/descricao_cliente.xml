@@ -8,25 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="invisible"
+            />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:text="Dados cliente"
-            android:textColor="#000"
-            android:textSize="20sp"
+            android:text="@string/textViewTitleUpdate"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/textViewTitle"/>
 
         <TextView
             android:id="@+id/textNomeCompleto"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome Completo"
+            android:text="@string/textViewNome"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -38,17 +46,19 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto" />
+            app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Big"/>
 
         <TextView
             android:id="@+id/textCpf"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cpf"
+            android:text="@string/textViewCpf"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editNomeCompleto" />
+            app:layout_constraintTop_toBottomOf="@+id/editNomeCompleto"/>
 
         <EditText
             android:id="@+id/editCpf"
@@ -57,7 +67,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCpf" />
+            app:layout_constraintTop_toBottomOf="@id/textCpf"
+            android:inputType="number"
+            android:maxLines="@integer/maxLines_Small_1"/>
 
         <TextView
             android:id="@+id/textDataNascimento"
@@ -73,7 +85,7 @@
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cep"
+            android:text="@string/textViewCep"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textDataNascimento" />
@@ -85,14 +97,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textCep" />
+            app:layout_constraintTop_toBottomOf="@id/textCep"
+            android:inputType="number"
+            android:maxLines="@integer/maxLines_Small_1"/>
 
         <TextView
             android:id="@+id/textLogradouro"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Logradouro"
+            android:text="@string/textViewLogradouro"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCep" />
@@ -104,14 +118,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textLogradouro" />
+            app:layout_constraintTop_toBottomOf="@id/textLogradouro"
+            android:inputType="text"
+            android:maxLines="@integer/maxLines_Big"/>
 
         <TextView
             android:id="@+id/textBairro"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bairro"
+            android:text="@string/textViewBairro"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editLogradouro" />
@@ -123,14 +139,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textBairro" />
+            app:layout_constraintTop_toBottomOf="@id/textBairro"
+            android:inputType="text"
+            android:maxLines="@integer/maxLines_Big"/>
 
         <TextView
             android:id="@+id/textNumero"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Numero"
+            android:text="@string/textViewNumero"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editBairro" />
@@ -142,14 +160,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textNumero" />
+            app:layout_constraintTop_toBottomOf="@id/textNumero"
+            android:inputType="number"
+            android:maxLines="@integer/maxLines_Small_2"/>
 
         <TextView
             android:id="@+id/textEstado"
             style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Estado"
+            android:text="@string/textViewEstado"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editNumero" />
@@ -161,17 +181,20 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textEstado" />
+            app:layout_constraintTop_toBottomOf="@id/textEstado"
+            android:inputType="text"
+            android:maxLines="@integer/maxLines_Small_2"/>
 
         <Button
             android:id="@+id/buttonEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Editar"
-            android:textSize="15dp"
+            android:text="@string/titleButtonUpdate"
             app:layout_constraintTop_toBottomOf="@+id/editEstado"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="20dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/StyleButton"
+            android:background="@drawable/style_button"/>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

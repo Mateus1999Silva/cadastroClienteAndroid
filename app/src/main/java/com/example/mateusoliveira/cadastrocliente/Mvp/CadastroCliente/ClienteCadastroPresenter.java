@@ -3,6 +3,7 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
@@ -102,6 +103,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
         view.setBairro(enderecoModel.getBairro());
         view.setEstado(enderecoModel.getEstado());
         view.setLogradrouro(enderecoModel.getLogradouro());
+        view.progress().setVisibility(View.INVISIBLE);
     }
 
     @Override

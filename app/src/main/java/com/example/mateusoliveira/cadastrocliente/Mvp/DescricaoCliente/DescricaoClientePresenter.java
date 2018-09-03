@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Intent;
+import android.view.View;
 
 import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
@@ -67,6 +68,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         view.setLogradrouro(enderecoModel.getLogradouro());
         view.setEstado(enderecoModel.getEstado());
         view.setBairro(enderecoModel.getBairro());
+        view.progress().setVisibility(View.INVISIBLE);
     }
 
     @Override
