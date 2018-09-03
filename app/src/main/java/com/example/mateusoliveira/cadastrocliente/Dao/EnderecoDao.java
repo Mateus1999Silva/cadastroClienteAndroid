@@ -45,7 +45,7 @@ public class EnderecoDao {
         SQLiteDatabase db = dmHelper.getWritableDatabase();
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT * FROM endereco WHERE id_cliente = ").append(id);
+        stringBuilder.append("SELECT * FROM endereco WHERE id = ").append(id);
         Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
 
         if (cursor.moveToFirst()) {

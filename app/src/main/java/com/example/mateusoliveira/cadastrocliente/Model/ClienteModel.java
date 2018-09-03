@@ -1,10 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class ClienteModel implements Serializable {
     private long id;
@@ -21,16 +18,16 @@ public class ClienteModel implements Serializable {
     public static final String DATA_NASCIMENTO = "dataNascimento";
 
     public String createTable() {
-      builder.append(" CREATE TABLE ").append(TABLE_NAME_CLIENTE).append("(").append(
-            ID ).append(" INTEGER PRIMARY KEY AUTOINCREMENT,").append(
-            NOME).append(" TEXT NOT NULL, ").append(
-            CPF ).append(" TEXT NOT NULL,").append(
-            DATA_NASCIMENTO).append(" TEXT NOT NULL);");
+        builder.append(" CREATE TABLE ").append(TABLE_NAME_CLIENTE).append("(").append(
+                ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT,").append(
+                NOME).append(" TEXT NOT NULL, ").append(
+                CPF).append(" TEXT NOT NULL,").append(
+                DATA_NASCIMENTO).append(" TEXT NOT NULL);");
 
-      return builder.toString();
+        return builder.toString();
     }
 
-    public ClienteModel(){
+    public ClienteModel() {
 
     }
 

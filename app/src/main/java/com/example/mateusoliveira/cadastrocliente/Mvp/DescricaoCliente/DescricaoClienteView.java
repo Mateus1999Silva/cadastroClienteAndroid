@@ -1,5 +1,6 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,20 +9,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
+import com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente.ClienteCadastroView;
 import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
 import com.example.mateusoliveira.cadastrocliente.R;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView{
 
@@ -50,6 +55,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     EditText txtEstado;
 
     private DescricaoClientePresenter presenter;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,24 +81,31 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         return true;
     }
 
+//    public void datPicker(){
+//
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker datePicker, int dYear, int dMonth, int mDayOfMonth) {
+//                String data = txtDataNascimento.getText().toString();
+//                datePickerDialog.setD
+//            }
+//        },year,month,day);
+//
+//    }
+
+
     @Override
     public void preencherDados() {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         EnderecoModel enderecoModel =(EnderecoModel) bundle.getSerializable("endereco");
         ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
-
-        txtNome.setText(clienteModel.getNome());
-        txtCpf.setText(clienteModel.getCpf());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
-        String data = sdf.format(clienteModel.getDatanascimento());
-        txtDataNascimento.setText(data);
-
-        txtCep.setText(enderecoModel.getCep());
-        txtBairro.setText(enderecoModel.getBairro());
-        txtNumero.setText(enderecoModel.getNumero());
-        txtLogradouro.setText(enderecoModel.getLogradouro());
-        txtEstado.setText(enderecoModel.getEstado());
+        presenter.preencherDados(clienteModel, enderecoModel);
     }
 
     @OnClick(R.id.buttonEditar)
@@ -128,6 +141,46 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @Override
     public EditText getLogradouro() {
         return txtLogradouro;
+    }
+
+    @Override
+    public void setNome(String nome) {
+        txtNome.setText(nome);
+    }
+
+    @Override
+    public void setCpf(String cpf) {
+        txtCpf.setText(cpf);
+    }
+
+    @Override
+    public void setDataNascimento(String dataNascimento) {
+        txtDataNascimento.setText(dataNascimento);
+    }
+
+    @Override
+    public void setCep(String cep) {
+        txtCep.setText(cep);
+    }
+
+    @Override
+    public void setNumero(String numero) {
+        txtNumero.setText(numero);
+    }
+
+    @Override
+    public void setBairro(String bairro) {
+        txtBairro.setText(bairro);
+    }
+
+    @Override
+    public void setEstado(String estado) {
+        txtEstado.setText(estado);
+    }
+
+    @Override
+    public void setLogradrouro(String logradouro) {
+        txtLogradouro.setText(logradouro);
     }
 
     @Override

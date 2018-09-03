@@ -1,7 +1,6 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
@@ -40,11 +39,26 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     }
 
     @Override
+    public void preencherDados(ClienteModel clienteModel, EnderecoModel enderecoModel) {
+        view.setNome(clienteModel.getNome());
+        view.setCpf(clienteModel.getCpf());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyy");
+        String data = sdf.format(clienteModel.getDatanascimento());
+        view.setDataNascimento(data);
+
+        view.setCep(enderecoModel.getCep());
+        view.setBairro(enderecoModel.getBairro());
+        view.setNumero(enderecoModel.getNumero());
+        view.setLogradrouro(enderecoModel.getLogradouro());
+        view.setEstado(enderecoModel.getEstado());
+    }
+
+    @Override
     public void editarCliente(long idCliente, long idEndereco) {
 
         try {
             ClienteDao clienteDao = new ClienteDao(view.getContext());
-            clienteDao.update(createClienteModel(idCliente));
+            clienteDao.update(createClienteModel(idCliente, idEndereco));
 
             EnderecoDao enderecoDao = new EnderecoDao(view.getContext());
             enderecoDao.update(createEnderecoModel(idCliente, idEndereco));
@@ -56,9 +70,9 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         view.getContext().startActivity(intent);
     }
 
-    public ClienteModel createClienteModel(long id) {
+    public ClienteModel createClienteModel(long idCliente, long idEndereco) {
         ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setId(id);
+        clienteModel.setId(idCliente);
         clienteModel.setCpf(view.getCpf().getText().toString());
         clienteModel.setNome(view.getNome().getText().toString());
 
@@ -68,6 +82,10 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        EnderecoDao enderecoDao = new EnderecoDao(view.getContext());
+        EnderecoModel enderecoModel = enderecoDao.readAddres((int) idEndereco);
+        clienteModel.setEnderecoCliente(enderecoModel);
         return clienteModel;
     }
 
@@ -78,8 +96,8 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         enderecoModel.setLogradouro(view.getLogradouro().getText().toString());
         enderecoModel.setEstado(view.getEstado().getText().toString());
         enderecoModel.setCep(view.getCep().getText().toString());
-        enderecoModel.setId((int) idCliente);
-        enderecoModel.setCliente(idEndereco);
+        enderecoModel.setId((int) idEndereco);
+        enderecoModel.setCliente(idCliente);
         return enderecoModel;
     }
 }
