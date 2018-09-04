@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 
+import java.util.List;
+
 public interface DescricaoClienteContrato {
 
     interface DescricaoClientePresenter{
@@ -16,6 +18,8 @@ public interface DescricaoClienteContrato {
         void editarCliente(long idCliente, long idEndereco);
         void preencherDados(ClienteModel clienteModel , EnderecoModel enderecoModel);
         void cep();
+        boolean validations();
+        boolean validationInternetCep();
     }
 
     interface DescricaoClienteView{
@@ -39,5 +43,6 @@ public interface DescricaoClienteContrato {
         void setLogradrouro(String logradouro);
         void editarCliente();
         ProgressBar progress();
+        List<EditText> camposCep();
     }
 }

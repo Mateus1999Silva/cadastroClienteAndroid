@@ -11,6 +11,7 @@ import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidations;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,9 +58,26 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     }
 
     @Override
+    public boolean validations() {
+        return  (ClienteValidations.EditEmpty(view.getNome()) &&
+                ClienteValidations.EditEmpty(view.getCpf()) &&
+                ClienteValidations.dates(view.getDataNascimento()) &&
+                ClienteValidations.EditEmpty(view.getCep()) &&
+                ClienteValidations.EditEmpty(view.getBairro()) &&
+                ClienteValidations.EditEmpty(view.getEstado()) &&
+                ClienteValidations.EditEmpty(view.getLogradouro()) &&
+                ClienteValidations.EditEmpty(view.getNumero()));
+    }
+
+    @Override
     public void cep() {
         apiRequest = new ApiRequest(this);
         apiRequest.getEndereco(view.getCep().getText().toString());
+    }
+
+    @Override
+    public boolean validationInternetCep() {
+        return ClienteValidations.connectionInternet(view.getContext(), view.camposCep());
     }
 
     @Override

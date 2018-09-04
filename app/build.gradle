@@ -19,6 +19,7 @@ android {
 }
 
 dependencies {
+    implementation 'br.com.jansenfelipe:androidmask:1.0.1'
     implementation 'com.android.support:design:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:recyclerview-v7:27.1.1'

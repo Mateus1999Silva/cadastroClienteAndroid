@@ -16,13 +16,17 @@ import android.widget.TextView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.R;
+import com.example.mateusoliveira.cadastrocliente.utils.MaskUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView {
 
@@ -52,6 +56,10 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @BindView(R.id.loading)
     ProgressBar progressBar;
+
+    @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
+    List<EditText> edits;
+
 
     private DescricaoClienteContrato.DescricaoClientePresenter presenter;
     private DatePickerDialog datePickerDialog;
@@ -104,10 +112,12 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         datePicker();
     }
 
-    @OnClick(R.id.editLogradouro)
+    @OnFocusChange(R.id.editLogradouro)
     public void cep() {
-        progressBar.setVisibility(View.VISIBLE);
-        presenter.cep();
+        if (presenter.validationInternetCep() && txtCep.getText().toString().length() == 9) {
+            progressBar.setVisibility(View.VISIBLE);
+            presenter.cep();
+        }
     }
 
     @Override
@@ -122,16 +132,24 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @OnClick(R.id.buttonEditar)
     @Override
     public void editarCliente() {
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
-        ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
-        presenter.editarCliente(clienteModel.getId(), enderecoModel.getId());
+
+        if (presenter.validations()) {
+            Intent intent = getIntent();
+            Bundle bundle = intent.getExtras();
+            EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
+            ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
+            presenter.editarCliente(clienteModel.getId(), enderecoModel.getId());
+        }
     }
 
     @Override
     public ProgressBar progress() {
         return progressBar;
+    }
+
+    @Override
+    public List<EditText> camposCep() {
+        return edits;
     }
 
     @Override
@@ -166,6 +184,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @Override
     public void setCpf(String cpf) {
+        MaskUtils.putMaskCpf(txtCpf);
         txtCpf.setText(cpf);
     }
 
@@ -176,6 +195,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @Override
     public void setCep(String cep) {
+        MaskUtils.putMaskCep(txtCep);
         txtCep.setText(cep);
     }
 

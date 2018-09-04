@@ -1,23 +1,18 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.mateusoliveira.cadastrocliente.ApiEndereco.ApiRequest;
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
-import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
+import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidations;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,11 +23,28 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
     private ClienteDao clienteDao;
     private EnderecoDao enderecoDao;
     private Date data = null;
-    ApiRequest apiRequest = new ApiRequest(this);
+    private ApiRequest apiRequest = new ApiRequest(this);
 
     @Override
     public void setView(ClienteCadastroView view) {
         this.view = view;
+    }
+
+    @Override
+    public boolean validationInternetCep() {
+        return ClienteValidations.connectionInternet(view.getContext(), view.camposCep());
+    }
+
+    @Override
+    public boolean validationsEdits() {
+        return (ClienteValidations.EditEmpty(view.getNome()) &&
+                ClienteValidations.EditEmpty(view.getCpf()) &&
+                ClienteValidations.dates(view.getDataNascimento()) &&
+                ClienteValidations.EditEmpty(view.getCep()) &&
+                ClienteValidations.EditEmpty(view.getBairro()) &&
+                ClienteValidations.EditEmpty(view.getEstado()) &&
+                ClienteValidations.EditEmpty(view.getLogradrouro()) &&
+                ClienteValidations.EditEmpty(view.getNumero()));
     }
 
     @Override

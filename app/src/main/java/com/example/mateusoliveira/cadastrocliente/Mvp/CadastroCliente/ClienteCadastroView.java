@@ -2,31 +2,26 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
 import com.example.mateusoliveira.cadastrocliente.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnFocusChange;
-import butterknife.OnLongClick;
 
 public class ClienteCadastroView extends AppCompatActivity implements ClienteCadastroContrato.clienteCadastroView {
 
@@ -59,6 +54,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
 
     @BindView(R.id.loading)
     ProgressBar progressBar;
+
+    @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
+    List<EditText> edits;
 
     private Calendar calendario;
     private DatePickerDialog datePickerDialog;
@@ -96,16 +94,25 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         datePicker();
     }
 
-    @OnClick(R.id.editLogradouro)
+    @OnFocusChange(R.id.editLogradouro)
     @Override
     public void cep() {
-        progress().setVisibility(View.VISIBLE);
-        presenter.apiCep();
+        if (presenter.validationInternetCep() && cep.getText().toString().length() == 9) {
+            progress().setVisibility(View.VISIBLE);
+            presenter.apiCep();
+        }
     }
 
     @OnClick(R.id.button)
     public void insertCliente() {
-        presenter.insert();
+        if (presenter.validationsEdits()){
+            presenter.insert();
+        }
+    }
+
+    @Override
+    public List<EditText> camposCep() {
+        return edits;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.ApiEndereco;
 
+import android.util.Log;
+
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
 
@@ -31,7 +33,7 @@ public class ApiRequest {
 
             @Override
             public void onFailure(Call<EnderecoModel> call, Throwable t) {
-
+                Log.e("Erro Retrofit", String.valueOf(t));
             }
         });
     }

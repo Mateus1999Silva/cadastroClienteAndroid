@@ -44,6 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/editViewNome"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Big"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textNomeCompleto"
             style="@style/StyleEditTextForm" />
@@ -65,6 +67,8 @@
             app:layout_constraintTop_toBottomOf="@id/textCpf"
             app:layout_constraintRight_toRightOf="parent"
             android:hint="@string/editViewCpf"
+            android:inputType="number"
+            android:maxLength="@integer/maxLines_Big"
             style="@style/StyleEditTextForm"/>
 
         <TextView
@@ -73,9 +77,9 @@
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
             android:hint="@string/textData"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCpf"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/editCpf" />
 
         <TextView
             android:id="@+id/textCep"
@@ -94,6 +98,8 @@
             app:layout_constraintTop_toBottomOf="@id/textCep"
             app:layout_constraintRight_toRightOf="parent"
             android:hint="@string/editViewCep"
+            android:inputType="number"
+            android:maxLength="@integer/maxLines_medium"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -112,6 +118,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textLogradouro"
             app:layout_constraintRight_toRightOf="parent"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Big"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -130,6 +138,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textBairro"
             app:layout_constraintRight_toRightOf="parent"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Big"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -148,6 +158,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textNumero"
             app:layout_constraintRight_toRightOf="parent"
+            android:inputType="number"
+            android:maxLength="@integer/maxLines_Small_2"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -166,6 +178,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textEstado"
             app:layout_constraintRight_toRightOf="parent"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Small"
             style="@style/StyleEditTextForm" />
 
         <Button

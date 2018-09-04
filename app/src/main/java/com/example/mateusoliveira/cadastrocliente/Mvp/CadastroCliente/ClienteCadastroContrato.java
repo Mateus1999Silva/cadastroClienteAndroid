@@ -25,16 +25,15 @@ public interface ClienteCadastroContrato {
         void setLogradrouro(String logradouro);
         ProgressBar progress();
         void cep();
-
-
-
+        List<EditText> camposCep();
     }
     interface clienteCadastroPresenter{
         void setView(ClienteCadastroView view);
         void insert();
         List<ClienteModel> readClientes();
         ClienteModel readCliente(int id);
-       //List<EnderecoModel> coutn();
         void apiCep();
+        boolean validationsEdits();
+        boolean validationInternetCep();
     }
 }
