@@ -39,6 +39,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
     public boolean validationsEdits() {
         return (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
+                ClienteValidationsUtils.validateCPF(view.getCpf()) &&
                 ClienteValidationsUtils.dates(view.getDataNascimento()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCep()) &&
                 ClienteValidationsUtils.EditEmpty(view.getBairro()) &&

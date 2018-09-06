@@ -66,6 +66,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     public boolean validations() {
         return  (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
+                ClienteValidationsUtils.validateCPF(view.getCpf()) &&
                 ClienteValidationsUtils.dates(view.getDataNascimento()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCep()) &&
                 ClienteValidationsUtils.EditEmpty(view.getBairro()) &&
