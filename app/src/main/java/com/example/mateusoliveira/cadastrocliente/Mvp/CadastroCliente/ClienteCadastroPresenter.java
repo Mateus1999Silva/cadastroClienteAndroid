@@ -11,7 +11,7 @@ import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
-import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidations;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,19 +32,19 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
 
     @Override
     public boolean validationInternetCep() {
-        return ClienteValidations.connectionInternet(view.getContext(), view.camposCep());
+        return ClienteValidationsUtils.connectionInternet(view.getContext(), view.camposCep());
     }
 
     @Override
     public boolean validationsEdits() {
-        return (ClienteValidations.EditEmpty(view.getNome()) &&
-                ClienteValidations.EditEmpty(view.getCpf()) &&
-                ClienteValidations.dates(view.getDataNascimento()) &&
-                ClienteValidations.EditEmpty(view.getCep()) &&
-                ClienteValidations.EditEmpty(view.getBairro()) &&
-                ClienteValidations.EditEmpty(view.getEstado()) &&
-                ClienteValidations.EditEmpty(view.getLogradrouro()) &&
-                ClienteValidations.EditEmpty(view.getNumero()));
+        return (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
+                ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
+                ClienteValidationsUtils.dates(view.getDataNascimento()) &&
+                ClienteValidationsUtils.EditEmpty(view.getCep()) &&
+                ClienteValidationsUtils.EditEmpty(view.getBairro()) &&
+                ClienteValidationsUtils.EditEmpty(view.getEstado()) &&
+                ClienteValidationsUtils.EditEmpty(view.getLogradrouro()) &&
+                ClienteValidationsUtils.EditEmpty(view.getNumero()));
     }
 
     @Override

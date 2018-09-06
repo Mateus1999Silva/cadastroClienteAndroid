@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.R;
+import com.example.mateusoliveira.cadastrocliente.utils.MaskUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -69,6 +70,8 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         ButterKnife.bind(this);
         presenter = new ClienteCadastroPresenter();
         presenter.setView(ClienteCadastroView.this);
+        MaskUtils.putMaskCep(cep);
+        MaskUtils.putMaskCpf(cpf);
     }
 
     public void datePicker() {
@@ -97,7 +100,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @OnFocusChange(R.id.editLogradouro)
     @Override
     public void cep() {
-        if (presenter.validationInternetCep() && cep.getText().toString().length() == 9) {
+        if (presenter.validationInternetCep()) {
             progress().setVisibility(View.VISIBLE);
             presenter.apiCep();
         }

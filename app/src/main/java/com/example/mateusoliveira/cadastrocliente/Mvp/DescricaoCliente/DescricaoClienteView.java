@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -59,7 +60,6 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
     List<EditText> edits;
-
 
     private DescricaoClienteContrato.DescricaoClientePresenter presenter;
     private DatePickerDialog datePickerDialog;
@@ -132,7 +132,6 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @OnClick(R.id.buttonEditar)
     @Override
     public void editarCliente() {
-
         if (presenter.validations()) {
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();

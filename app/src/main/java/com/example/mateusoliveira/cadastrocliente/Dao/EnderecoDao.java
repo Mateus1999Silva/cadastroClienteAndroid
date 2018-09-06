@@ -38,6 +38,7 @@ public class EnderecoDao {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         db.insert(enderecoModel.TABLE_NAME_ENDERECO, null, converterParaContentValues(enderecoModel));
+        db.close();
     }
 
     public EnderecoModel readAddres(int id) {
@@ -67,16 +68,17 @@ public class EnderecoDao {
 
 
             } while (cursor.moveToNext());
+            db.close();
+            cursor.close();
         }
         return enderecoModel;
     }
 
-    public List<EnderecoModel> readEndereco() {
-        enderecoList = new ArrayList();
+    public EnderecoModel readEnderecoofCliente(long id) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT * FROM endereco");
+        stringBuilder.append("SELECT * FROM endereco WHERE id_cliente = ").append(id);
 
         Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
         if (cursor.moveToFirst()) {
@@ -96,17 +98,25 @@ public class EnderecoDao {
                 enderecoModel.setEstado(estado);
                 enderecoModel.setCliente(cliente);
 
-                enderecoList.add(enderecoModel);
-
             } while (cursor.moveToNext());
+            db.close();
+            cursor.close();
         }
-        return enderecoList;
+        return enderecoModel;
     }
 
-    public boolean update(EnderecoModel endereco){
+    public boolean update(EnderecoModel endereco) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
-        db.update(EnderecoModel.TABLE_NAME_ENDERECO, converterParaContentValues(endereco),"ID = ?",new String[] { String.valueOf(endereco.getId())});
+        db.update(EnderecoModel.TABLE_NAME_ENDERECO, converterParaContentValues(endereco), "ID = ?", new String[]{String.valueOf(endereco.getId())});
+        db.close();
+        return true;
+    }
+
+    public boolean delete(long id) {
+        Sqlite dmHelper = new Sqlite(this.context);
+        SQLiteDatabase db = dmHelper.getWritableDatabase();
+        db.delete(EnderecoModel.TABLE_NAME_ENDERECO, "ID = ?", new String[]{String.valueOf(id)});
         return true;
     }
 }

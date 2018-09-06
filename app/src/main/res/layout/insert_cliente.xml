@@ -77,6 +77,8 @@
             android:layout_height="wrap_content"
             style="@style/StyleTextView"
             android:hint="@string/textData"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCpf" />
@@ -85,21 +87,22 @@
             android:id="@+id/textCep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/StyleTextView"
             android:text="@string/textViewCep"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textDataNascimento"/>
+            app:layout_constraintTop_toBottomOf="@+id/textDataNascimento"
+            style="@style/StyleTextView"/>
 
         <EditText
             android:id="@+id/editCep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textCep"
-            app:layout_constraintRight_toRightOf="parent"
             android:hint="@string/editViewCep"
             android:inputType="number"
+            android:imeOptions="actionSearch"
             android:maxLength="@integer/maxLines_medium"
+            app:layout_constraintTop_toBottomOf="@id/textCep"
+            app:layout_constraintRight_toRightOf="parent"
             style="@style/StyleEditTextForm" />
 
         <TextView

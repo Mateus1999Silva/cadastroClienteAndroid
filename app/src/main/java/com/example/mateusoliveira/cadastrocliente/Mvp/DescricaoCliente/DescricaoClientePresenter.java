@@ -11,10 +11,11 @@ import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.Mvp.MapCliente.MapClienteView;
 import com.example.mateusoliveira.cadastrocliente.interfaceResult.SyncResult;
-import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidations;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ExecutionException;
 
 public class DescricaoClientePresenter implements DescricaoClienteContrato.DescricaoClientePresenter, SyncResult {
 
@@ -47,9 +48,13 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     public void preencherDados(ClienteModel clienteModel, EnderecoModel enderecoModel) {
         view.setNome(clienteModel.getNome());
         view.setCpf(clienteModel.getCpf());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String data = sdf.format(clienteModel.getDatanascimento());
-        view.setDataNascimento(data);
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String data = sdf.format(clienteModel.getDatanascimento());
+            view.setDataNascimento(data);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         view.setCep(enderecoModel.getCep());
         view.setBairro(enderecoModel.getBairro());
         view.setNumero(enderecoModel.getNumero());
@@ -59,14 +64,14 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
 
     @Override
     public boolean validations() {
-        return  (ClienteValidations.EditEmpty(view.getNome()) &&
-                ClienteValidations.EditEmpty(view.getCpf()) &&
-                ClienteValidations.dates(view.getDataNascimento()) &&
-                ClienteValidations.EditEmpty(view.getCep()) &&
-                ClienteValidations.EditEmpty(view.getBairro()) &&
-                ClienteValidations.EditEmpty(view.getEstado()) &&
-                ClienteValidations.EditEmpty(view.getLogradouro()) &&
-                ClienteValidations.EditEmpty(view.getNumero()));
+        return  (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
+                ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
+                ClienteValidationsUtils.dates(view.getDataNascimento()) &&
+                ClienteValidationsUtils.EditEmpty(view.getCep()) &&
+                ClienteValidationsUtils.EditEmpty(view.getBairro()) &&
+                ClienteValidationsUtils.EditEmpty(view.getEstado()) &&
+                ClienteValidationsUtils.EditEmpty(view.getLogradouro()) &&
+                ClienteValidationsUtils.EditEmpty(view.getNumero()));
     }
 
     @Override
@@ -77,7 +82,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
 
     @Override
     public boolean validationInternetCep() {
-        return ClienteValidations.connectionInternet(view.getContext(), view.camposCep());
+        return ClienteValidationsUtils.connectionInternet(view.getContext(), view.camposCep());
     }
 
     @Override

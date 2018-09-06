@@ -44,6 +44,7 @@ public class ClienteDao {
             SQLiteDatabase db = dmHelper.getWritableDatabase();
             long id = db.insert(cliente.TABLE_NAME_CLIENTE, null, converterParaContentValues(clienteModel));
             clienteModel.setId(id);
+            db.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,7 +126,7 @@ public class ClienteDao {
         Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
         if (cursor.moveToFirst()) {
             do {
-                Integer idCliente  = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ClienteModel.ID)));
+                Integer idCliente = Integer.parseInt(cursor.getString(cursor.getColumnIndex(ClienteModel.ID)));
                 String nomeCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
                 String cpfCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
                 String datanascimentoCliente = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
@@ -158,42 +159,26 @@ public class ClienteDao {
                 endereco.setBairro(bairro);
                 cliente.setEnderecoCliente(endereco);
             } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
         }
         return cliente;
     }
 
-    public boolean update(ClienteModel cliente){
+    public boolean update(ClienteModel cliente) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
-        db.update(ClienteModel.TABLE_NAME_CLIENTE, converterParaContentValues(cliente),"ID = ?",new String[] { String.valueOf(cliente.getId())});
+        db.update(ClienteModel.TABLE_NAME_CLIENTE, converterParaContentValues(cliente), "ID = ?", new String[]{String.valueOf(cliente.getId())});
+        db.close();
         return true;
     }
 
-//    public List<ModelList> readCliente() {
-//        List<ModelList> clienteList = new ArrayList();
-//        Sqlite dmHelper = new Sqlite(this.context);
-//        SQLiteDatabase db = dmHelper.getWritableDatabase();
-//        stringBuilder = new StringBuilder();
-//        stringBuilder.append("SELECT * FROM clientes");
-//
-//        Cursor cursor = db.rawQuery(stringBuilder.toString(), null);
-//        if (cursor.moveToFirst()) {
-//            do {
-//                String id = cursor.getString(cursor.getColumnIndex(ClienteModel.ID));
-//                String nome = cursor.getString(cursor.getColumnIndex(ClienteModel.NOME));
-//                String cpf = cursor.getString(cursor.getColumnIndex(ClienteModel.CPF));
-//                String dataNascimento = cursor.getString(cursor.getColumnIndex(ClienteModel.DATA_NASCIMENTO));
-//
-//                ModelList clienteDados = new ModelList();
-//                clienteDados.setId(Long.parseLong(id));
-//                clienteDados.setNome(nome);
-//                clienteDados.setCpf(cpf);
-//
-//                clienteList.add(clienteDados);
-//            } while (cursor.moveToNext());
-//        }
-//        return clienteList;
-//    }
+    public boolean delete(long id){
+        Sqlite dmHelper = new Sqlite(this.context);
+        SQLiteDatabase db = dmHelper.getWritableDatabase();
+        db.delete(ClienteModel.TABLE_NAME_CLIENTE, "ID = ?", new String[]{String.valueOf(id)});
+        return true;
+    }
 }
 
 

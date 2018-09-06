@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class ClienteValidations {
+public class ClienteValidationsUtils {
 
     public static boolean EditEmpty(EditText editValidation) {
         if (editValidation.getText().toString().isEmpty()) {
@@ -24,13 +24,17 @@ public class ClienteValidations {
 
     public static boolean dates(TextView date) {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataAtual = new Date();
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date dataValidation = sdf.parse(date.getText().toString());
-
-            Date dataAtual = new Date();
-            if (date.length() == 0 || dataValidation.getTime() > dataAtual.getTime()) {
+            if (date.equals(null) || date.getText().toString().isEmpty()) {
+                date.setError("Preencha o campo de data");
+                date.requestFocus();
+                return false;
+            } else if (sdf.parse(date.getText().toString()).getTime() > dataAtual.getTime()) {
                 date.setError("Data inválida, não pode ser maior que a data de hoje");
+//                date.requestFocus();
+//                date.isFocusableInTouchMode();
                 return false;
             }
         } catch (ParseException e) {

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente.ClienteCadastroView;
 import com.example.mateusoliveira.cadastrocliente.R;
 import com.example.mateusoliveira.cadastrocliente.RecyrcleView.Adapter.RecyrcleViewAdapter;
+import com.example.mateusoliveira.cadastrocliente.utils.SwipeRecyrcleView;
 
 import java.util.List;
 
@@ -40,7 +42,6 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
         ButterKnife.bind(this);
         presenter = new ListClientePresenter();
         presenter.setView(ListClienteView.this);
-
         recyrcleView();
 
     }
@@ -62,5 +63,9 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
         recyrcle.setLayoutManager(linearLayoutManager);
         recyrcleViewAdapter = new RecyrcleViewAdapter(presenter.readCliente(), this);
         recyrcle.setAdapter(recyrcleViewAdapter);
+
+        SwipeRecyrcleView swipeRecyrcleView = new SwipeRecyrcleView();
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeRecyrcleView);
+        itemTouchHelper.attachToRecyclerView(recyrcle);
     }
 }
