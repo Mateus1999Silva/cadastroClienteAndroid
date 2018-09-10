@@ -28,6 +28,7 @@ public class ClienteValidationsUtils {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataAtual = new Date();
+
         try {
             if (date.equals(null) || date.getText().toString().isEmpty()) {
                 date.setError("Preencha o campo de data");
