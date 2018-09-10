@@ -2,7 +2,6 @@ package com.example.mateusoliveira.cadastrocliente.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,7 +27,6 @@ public class ClienteValidationsUtils {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataAtual = new Date();
-
         try {
             if (date.equals(null) || date.getText().toString().isEmpty()) {
                 date.setError("Preencha o campo de data");
@@ -63,14 +61,10 @@ public class ClienteValidationsUtils {
     }
 
     public static boolean validateCPF(EditText editCpf) {
-        String CPF = editCpf.getText().toString();
-
-        CPF.replaceAll("[.]", "").replaceAll("[-]", "")
+        String CPF = editCpf.getText().toString().replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "").replaceAll(" ", "")
                 .replaceAll(",", "");
-
-        Log.i("cpf", CPF);
 
         if (CPF.equals("00000000000") ||
                 CPF.equals("11111111111") ||
@@ -132,4 +126,3 @@ public class ClienteValidationsUtils {
         }
     }
 }
-

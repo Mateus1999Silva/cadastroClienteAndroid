@@ -1,51 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="10dp"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/swipe"
+    app:leftEdgeSwipeOffset="0dp"
+    app:rightEdgeSwipeOffset="0dp"
+    android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
+
+    <LinearLayout
+        android:id="@+id/bottom_wraper"
+        android:layout_width="240dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/Edit"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0076a5"
+            android:gravity="center"
+            android:text="Edit"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/Delete"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="#fff"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:elevation="10dp">
-
-        <android.support.constraint.ConstraintLayout
+        android:background="?android:selectableItemBackground"
+        android:elevation="5dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/textNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="15dp"
+            tools:text="@tools:sample/lorem/random" />
 
-            <TextView
-                android:id="@+id/textNome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:textColor="#000"
-                android:textSize="15dp"
-                tools:text="@tools:sample/lorem/random" />
+        <TextView
+            android:id="@+id/textCpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="15dp"
+            tools:text="@tools:sample/lorem/random"
+            app:layout_constraintTop_toBottomOf="@id/textNome"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/textCpf"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:textColor="#000"
-                android:textSize="15dp"
-                tools:text="@tools:sample/lorem/random"
-                app:layout_constraintTop_toBottomOf="@id/textNome"/>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-</android.support.constraint.ConstraintLayout>
+</com.daimajia.swipe.SwipeLayout>
