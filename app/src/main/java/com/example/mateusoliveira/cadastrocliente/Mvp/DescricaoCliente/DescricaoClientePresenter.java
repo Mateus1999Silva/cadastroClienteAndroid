@@ -58,6 +58,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         view.setCep(enderecoModel.getCep());
         view.setBairro(enderecoModel.getBairro());
         view.setNumero(enderecoModel.getNumero());
+        view.setComplemento(enderecoModel.getComplemento());
         view.setLogradrouro(enderecoModel.getLogradouro());
         view.setEstado(enderecoModel.getEstado());
     }
@@ -142,6 +143,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         enderecoModel.setNumero(view.getNumero().getText().toString());
         enderecoModel.setLogradouro(view.getLogradouro().getText().toString());
         enderecoModel.setEstado(view.getEstado().getText().toString());
+        enderecoModel.setComplemento(view.getComplemento().getText().toString());
         enderecoModel.setCep(view.getCep().getText().toString());
         enderecoModel.setId((int) idEndereco);
         enderecoModel.setCliente(idCliente);

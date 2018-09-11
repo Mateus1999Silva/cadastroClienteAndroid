@@ -56,6 +56,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.loading)
     ProgressBar progressBar;
 
+    @BindView(R.id.editComplemento)
+    EditText editComplemento;
+
     @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
     List<EditText> edits;
 
@@ -161,6 +164,11 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @Override
     public EditText getLogradrouro() {
         return logradouro;
+    }
+
+    @Override
+    public EditText getComplemento() {
+        return editComplemento;
     }
 
     @Override

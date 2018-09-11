@@ -8,7 +8,6 @@
     app:rightEdgeSwipeOffset="0dp"
     android:layout_height="wrap_content">
 
-
     <LinearLayout
         android:id="@+id/bottom_wraper"
         android:layout_width="240dp"

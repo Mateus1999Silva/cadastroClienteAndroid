@@ -20,6 +20,7 @@ public interface ClienteCadastroContrato {
         EditText getNumero();
         EditText getEstado();
         EditText getLogradrouro();
+        EditText getComplemento();
         void setBairro(String bairro);
         void setEstado(String estado);
         void setLogradrouro(String logradouro);

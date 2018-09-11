@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.List;
 
-public class EnderecoModel implements Serializable{
+public class EnderecoModel implements Serializable {
 
     private int id;
     private String cep;
@@ -14,6 +14,7 @@ public class EnderecoModel implements Serializable{
     @SerializedName("bairro")
     private String bairro;
     private String numero;
+    private String complemento;
     @SerializedName("localidade")
     private String estado;
     private long cliente;
@@ -27,6 +28,7 @@ public class EnderecoModel implements Serializable{
     public static final String ESTADO = "estado";
     public static final String NUMERO = "numero";
     public static final String ID_CLIENTE = "id_cliente";
+    public static final String COMPLEMENTO = "complemento";
 
     public String createTable() {
         builder.append("CREATE TABLE ").append(TABLE_NAME_ENDERECO).append("(").append(
@@ -35,6 +37,7 @@ public class EnderecoModel implements Serializable{
                 LOGRADOURO).append(" TEXT NOT NULL,").append(
                 BAIRRO).append(" TEXT NOT NULL ,").append(
                 NUMERO).append(" TEXT NOT NULL ,").append(
+                COMPLEMENTO).append(" TEXT ,").append(
                 ESTADO).append(" TEXT NOT NULL,").append(
                 ID_CLIENTE).append(" TEXT NOT NULL,").append(
                 "FOREIGN KEY(").append(ID_CLIENTE).append(") REFERENCES ").append(ClienteModel.TABLE_NAME_CLIENTE).append("(").append(ClienteModel.ID).append("));");
@@ -82,6 +85,14 @@ public class EnderecoModel implements Serializable{
         this.numero = numero;
     }
 
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -97,4 +108,5 @@ public class EnderecoModel implements Serializable{
     public void setCliente(long cliente) {
         this.cliente = cliente;
     }
+
 }

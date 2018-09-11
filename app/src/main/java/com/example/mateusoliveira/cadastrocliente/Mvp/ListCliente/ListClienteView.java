@@ -25,9 +25,9 @@ import butterknife.OnClick;
 
 public class ListClienteView extends AppCompatActivity implements ListClienteContrato.ListClienteView {
 
-
     @BindView(R.id.recycleView)
     RecyclerView recyrcle;
+
     private List<ClienteModel> cliente;
     private RecyrcleViewAdapter recyrcleViewAdapter;
     private ListClientePresenter presenter;
@@ -53,6 +53,19 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
     }
 
     @Override
+    public boolean deleteCliente(int idCliente, int idEndereco) {
+        if(presenter.deleteClienteRecyrcleView(idCliente,idEndereco)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void editarCliente(ClienteModel clienteModel) {
+        presenter.editarClienteRecyclerView(clienteModel);
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }
@@ -61,11 +74,7 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
     public void recyrcleView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyrcle.setLayoutManager(linearLayoutManager);
-        recyrcleViewAdapter = new RecyrcleViewAdapter(presenter.readCliente(), this);
+        recyrcleViewAdapter = new RecyrcleViewAdapter(presenter.readCliente(), this, this);
         recyrcle.setAdapter(recyrcleViewAdapter);
-
-        SwipeRecyrcleView swipeRecyrcleView = new SwipeRecyrcleView();
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeRecyrcleView);
-        itemTouchHelper.attachToRecyclerView(recyrcle);
     }
 }

@@ -33,11 +33,13 @@ public interface DescricaoClienteContrato {
         EditText getBairro();
         EditText getEstado();
         EditText getLogradouro();
+        EditText getComplemento();
         void setNome(String nome);
         void setCpf(String cpf);
         void setDataNascimento(String dataNascimento);
         void setCep(String cep);
         void setNumero(String numero);
+        void setComplemento(String complemento);
         void setBairro(String bairro);
         void setEstado(String estado);
         void setLogradrouro(String logradouro);

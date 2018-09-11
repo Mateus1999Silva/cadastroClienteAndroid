@@ -1,6 +1,8 @@
 package com.example.mateusoliveira.cadastrocliente.RecyrcleView.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +17,8 @@ import android.widget.Toast;
 import com.daimajia.swipe.SwipeLayout;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente.DescricaoClienteView;
+import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteContrato;
+import com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente.ListClienteView;
 import com.example.mateusoliveira.cadastrocliente.R;
 
 import java.io.Serializable;
@@ -26,10 +30,12 @@ import butterknife.ButterKnife;
 public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapter.ViewHolder> {
     private List<ClienteModel> dados;
     private Context context;
+    private ListClienteContrato.ListClienteView view;
 
-    public RecyrcleViewAdapter(List<ClienteModel> dados, Context context) {
+    public RecyrcleViewAdapter(List<ClienteModel> dados, Context context, ListClienteContrato.ListClienteView view) {
         this.dados = dados;
         this.context = context;
+        this.view = view;
     }
 
     @NonNull
@@ -42,7 +48,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-        final ClienteModel item =  dados.get(position);;
+        final ClienteModel item = dados.get(position);
         if ((dados != null) && (dados.size() > 0)) {
             viewHolder.txtCpf.setText(item.getCpf());
             viewHolder.txtNome.setText(item.getNome());
@@ -87,25 +93,34 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
             }
         });
 
-        viewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, " Click : " + item.getNome() + " \n" + item.getNome(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         viewHolder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                Toast.makeText(view.getContext(), "Clicked on Edit  " + viewHolder.txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                ClienteModel clienteModel = dados.get(position);
+                view.editarCliente(clienteModel);
             }
         });
 
         viewHolder.Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Deleted " + viewHolder.txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(context)
+                        .setTitle("Deletar Cliente")
+                        .setMessage("Deseja Realmente deletar o cliente")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ClienteModel clienteModel = dados.get(position);
+                                int idCliente = (int) clienteModel.getId();
+                                int idEndereco = clienteModel.getEnderecoCliente().getId();
+                                if (view.deleteCliente(idCliente, idEndereco)) {
+                                    dados.remove(position);
+                                    notifyItemRemoved(position);
+                                }
+                            }
+                        })
+                        .setNegativeButton("Não", null).show();
             }
         });
     }
@@ -115,7 +130,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
         return dados.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.textCpf)
         TextView txtCpf;
@@ -134,20 +149,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
-        }
-
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            ClienteModel clienteModel = dados.get(position);
-            Intent intent = new Intent(context, DescricaoClienteView.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("cliente", (Serializable) clienteModel);
-            bundle.putSerializable("endereco", (Serializable) clienteModel.getEnderecoCliente());
-            intent.putExtras(bundle);
-            context.startActivity(intent);
         }
     }
 }

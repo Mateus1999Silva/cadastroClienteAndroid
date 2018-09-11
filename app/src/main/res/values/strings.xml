@@ -9,6 +9,7 @@
     <string name="textViewLogradouro">Logradouro</string>
     <string name="textViewBairro">Bairro</string>
     <string name="textViewNumero">Numero</string>
+    <string name="textViewComplemento">Complemento</string>
     <string name="textViewEstado">Estado</string>
     <string name="textData">dd/MM/yyyy</string>
 

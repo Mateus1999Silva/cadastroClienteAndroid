@@ -159,10 +159,31 @@
             android:id="@+id/editNumero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textNumero"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textNumero"
             android:inputType="number"
             android:maxLength="@integer/maxLines_Small_2"
+            style="@style/StyleEditTextForm" />
+
+        <TextView
+            android:id="@+id/textComplemento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/StyleTextView"
+            android:text="@string/textViewComplemento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNumero"/>
+
+        <EditText
+            android:id="@+id/editComplemento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textComplemento"
+            app:layout_constraintRight_toRightOf="parent"
+            android:hint="@string/textViewComplemento"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Small"
             style="@style/StyleEditTextForm" />
 
         <TextView
@@ -173,7 +194,7 @@
             android:text="@string/textViewEstado"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editNumero"/>
+            app:layout_constraintTop_toBottomOf="@+id/editComplemento"/>
 
         <EditText
             android:id="@+id/editEstado"

@@ -30,12 +30,9 @@ public class ClienteValidationsUtils {
         try {
             if (date.equals(null) || date.getText().toString().isEmpty()) {
                 date.setError("Preencha o campo de data");
-                date.requestFocus();
                 return false;
             } else if (sdf.parse(date.getText().toString()).getTime() > dataAtual.getTime()) {
                 date.setError("Data inválida, não pode ser maior que a data de hoje");
-//                date.requestFocus();
-//                date.isFocusableInTouchMode();
                 return false;
             }
         } catch (ParseException e) {

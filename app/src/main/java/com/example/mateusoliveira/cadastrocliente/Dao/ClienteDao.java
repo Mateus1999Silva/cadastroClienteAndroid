@@ -83,6 +83,7 @@ public class ClienteDao {
                 String cep = cursor.getString(cursor.getColumnIndex(endereco.CEP));
                 String bairro = cursor.getString(cursor.getColumnIndex(endereco.BAIRRO));
                 String numero = cursor.getString(cursor.getColumnIndex(endereco.NUMERO));
+                String complemento = cursor.getString(cursor.getColumnIndex(endereco.COMPLEMENTO));
                 String estado = cursor.getString(cursor.getColumnIndex(endereco.ESTADO));
                 String logradouro = cursor.getString(cursor.getColumnIndex(endereco.LOGRADOURO));
 
@@ -105,6 +106,7 @@ public class ClienteDao {
                 endereco.setEstado(estado);
                 endereco.setLogradouro(logradouro);
                 endereco.setNumero(numero);
+                endereco.setComplemento(complemento);
                 endereco.setBairro(bairro);
                 cliente.setEnderecoCliente(endereco);
 
@@ -135,6 +137,7 @@ public class ClienteDao {
                 String cep = cursor.getString(cursor.getColumnIndex(endereco.CEP));
                 String bairro = cursor.getString(cursor.getColumnIndex(endereco.BAIRRO));
                 String numero = cursor.getString(cursor.getColumnIndex(endereco.NUMERO));
+                String complemento = cursor.getString(cursor.getColumnIndex(endereco.COMPLEMENTO));
                 String estado = cursor.getString(cursor.getColumnIndex(endereco.ESTADO));
                 String logradouro = cursor.getString(cursor.getColumnIndex(endereco.LOGRADOURO));
 
@@ -156,6 +159,7 @@ public class ClienteDao {
                 endereco.setEstado(estado);
                 endereco.setLogradouro(logradouro);
                 endereco.setNumero(numero);
+                endereco.setComplemento(complemento);
                 endereco.setBairro(bairro);
                 cliente.setEnderecoCliente(endereco);
             } while (cursor.moveToNext());
@@ -173,10 +177,11 @@ public class ClienteDao {
         return true;
     }
 
-    public boolean delete(long id){
+    public boolean delete(int id){
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         db.delete(ClienteModel.TABLE_NAME_CLIENTE, "ID = ?", new String[]{String.valueOf(id)});
+        db.close();
         return true;
     }
 }

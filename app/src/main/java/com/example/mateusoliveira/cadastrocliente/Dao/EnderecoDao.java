@@ -30,6 +30,7 @@ public class EnderecoDao {
         contentValues.put(enderecoModel.LOGRADOURO, enderecoModel.getLogradouro());
         contentValues.put(enderecoModel.ESTADO, enderecoModel.getEstado());
         contentValues.put(enderecoModel.NUMERO, enderecoModel.getNumero());
+        contentValues.put(enderecoModel.COMPLEMENTO, enderecoModel.getComplemento());
         contentValues.put(enderecoModel.ID_CLIENTE, enderecoModel.getCliente());
         return contentValues;
     }
@@ -54,6 +55,7 @@ public class EnderecoDao {
                 String cep = cursor.getString(cursor.getColumnIndex(EnderecoModel.CEP));
                 String bairro = cursor.getString(cursor.getColumnIndex(EnderecoModel.BAIRRO));
                 String numero = cursor.getString(cursor.getColumnIndex(EnderecoModel.NUMERO));
+                String complemento = cursor.getString(cursor.getColumnIndex(EnderecoModel.COMPLEMENTO));
                 String logradouro = cursor.getString(cursor.getColumnIndex(EnderecoModel.LOGRADOURO));
                 String estado = cursor.getString(cursor.getColumnIndex(EnderecoModel.ESTADO));
                 String cliente = cursor.getString(cursor.getColumnIndex(EnderecoModel.ID_CLIENTE));
@@ -62,6 +64,7 @@ public class EnderecoDao {
                 enderecoModel.setCep(cep);
                 enderecoModel.setBairro(bairro);
                 enderecoModel.setNumero(numero);
+                enderecoModel.setComplemento(complemento);
                 enderecoModel.setLogradouro(logradouro);
                 enderecoModel.setEstado(estado);
                 enderecoModel.setCliente(Integer.parseInt(cliente));
@@ -74,7 +77,7 @@ public class EnderecoDao {
         return enderecoModel;
     }
 
-    public EnderecoModel readEnderecoofCliente(long id) {
+    public EnderecoModel readEnderecoCliente(long id) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         StringBuilder stringBuilder = new StringBuilder();
@@ -86,6 +89,7 @@ public class EnderecoDao {
                 String cep = cursor.getString(cursor.getColumnIndex(EnderecoModel.CEP));
                 String bairro = cursor.getString(cursor.getColumnIndex(EnderecoModel.BAIRRO));
                 String numero = cursor.getString(cursor.getColumnIndex(EnderecoModel.NUMERO));
+                String complemento = cursor.getString(cursor.getColumnIndex(EnderecoModel.COMPLEMENTO));
                 String logradouro = cursor.getString(cursor.getColumnIndex(EnderecoModel.LOGRADOURO));
                 String estado = cursor.getString(cursor.getColumnIndex(EnderecoModel.ESTADO));
                 long cliente = Long.parseLong(cursor.getString(cursor.getColumnIndex(EnderecoModel.ID_CLIENTE)));
@@ -94,6 +98,7 @@ public class EnderecoDao {
                 enderecoModel.setCep(cep);
                 enderecoModel.setBairro(bairro);
                 enderecoModel.setNumero(numero);
+                enderecoModel.setComplemento(complemento);
                 enderecoModel.setLogradouro(logradouro);
                 enderecoModel.setEstado(estado);
                 enderecoModel.setCliente(cliente);
@@ -113,7 +118,7 @@ public class EnderecoDao {
         return true;
     }
 
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         db.delete(EnderecoModel.TABLE_NAME_ENDERECO, "ID = ?", new String[]{String.valueOf(id)});

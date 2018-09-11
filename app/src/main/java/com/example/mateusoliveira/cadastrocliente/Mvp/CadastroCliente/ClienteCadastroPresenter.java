@@ -87,7 +87,9 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
         endereco.setLogradouro(this.view.getLogradrouro().getText().toString());
         endereco.setNumero(this.view.getNumero().getText().toString());
         endereco.setEstado(this.view.getEstado().getText().toString());
+        endereco.setComplemento(view.getComplemento().getText().toString());
         endereco.setCliente(clienteId);
+
         return endereco;
     }
 

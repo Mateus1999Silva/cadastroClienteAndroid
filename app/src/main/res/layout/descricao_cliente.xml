@@ -73,8 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/textData"
-            android:focusableInTouchMode="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCpf" />
@@ -139,41 +139,64 @@
 
         <TextView
             android:id="@+id/textNumero"
-            style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/StyleTextView"
             android:text="@string/textViewNumero"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBairro" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editBairro"/>
 
         <EditText
             android:id="@+id/editNumero"
-            style="@style/StyleEditTextForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textNumero"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textNumero"
             android:inputType="number"
-            android:maxLength="@integer/maxLines_Small_2"/>
+            android:maxLength="@integer/maxLines_Small_2"
+            style="@style/StyleEditTextForm" />
+
+        <TextView
+            android:id="@+id/textComplemento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/StyleTextView"
+            android:text="@string/textViewComplemento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNumero"/>
+
+        <EditText
+            android:id="@+id/editComplemento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textComplemento"
+            app:layout_constraintRight_toRightOf="parent"
+            android:hint="@string/textViewComplemento"
+            android:inputType="text"
+            android:maxLength="@integer/maxLines_Small"
+            style="@style/StyleEditTextForm" />
 
         <TextView
             android:id="@+id/textEstado"
-            style="@style/StyleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/StyleTextView"
             android:text="@string/textViewEstado"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editNumero" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editComplemento"/>
 
         <EditText
             android:id="@+id/editEstado"
-            style="@style/StyleEditTextForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textEstado"
+            app:layout_constraintRight_toRightOf="parent"
             android:inputType="text"
-            android:maxLength="@integer/maxLines_Small"/>
+            android:maxLength="@integer/maxLines_Small"
+            style="@style/StyleEditTextForm" />
 
         <Button
             android:id="@+id/buttonEditar"
