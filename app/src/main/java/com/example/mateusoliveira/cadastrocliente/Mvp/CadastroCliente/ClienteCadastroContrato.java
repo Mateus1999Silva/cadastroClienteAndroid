@@ -25,7 +25,6 @@ public interface ClienteCadastroContrato {
         void setEstado(String estado);
         void setLogradrouro(String logradouro);
         ProgressBar progress();
-        void cep();
         List<EditText> camposCep();
     }
     interface clienteCadastroPresenter{

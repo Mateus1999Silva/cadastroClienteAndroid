@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mateusoliveira.cadastrocliente.R;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 import com.example.mateusoliveira.cadastrocliente.utils.MaskUtils;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,6 @@ import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
 public class ClienteCadastroView extends AppCompatActivity implements ClienteCadastroContrato.clienteCadastroView {
 
@@ -100,18 +100,24 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         datePicker();
     }
 
-    @OnFocusChange(R.id.editLogradouro)
     @Override
-    public void cep() {
-        if (presenter.validationInternetCep()) {
-            progress().setVisibility(View.VISIBLE);
-            presenter.apiCep();
-        }
+    protected void onStart() {
+        super.onStart();
+        cep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus && presenter.validationInternetCep() &&
+                        ClienteValidationsUtils.cepIsValid(cep.getText().toString())) {
+                    progress().setVisibility(View.VISIBLE);
+                    presenter.apiCep();
+                }
+            }
+        });
     }
 
     @OnClick(R.id.button)
     public void insertCliente() {
-        if (presenter.validationsEdits()){
+        if (presenter.validationsEdits()) {
             presenter.insert();
         }
     }

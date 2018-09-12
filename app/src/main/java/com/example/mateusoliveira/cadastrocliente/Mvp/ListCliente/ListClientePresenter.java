@@ -2,6 +2,7 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
@@ -11,6 +12,8 @@ import com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente.Descricao
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
 
 public class ListClientePresenter implements ListClienteContrato.ListClientePresenter {
 

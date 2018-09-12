@@ -16,10 +16,10 @@ public class ApiRequest {
 
     public ApiRequest(SyncResult syncResult) {
         this.syncResult = syncResult;
-        this.apiInterface = ApiEndereco.getClient().create(ApiInterface.class);
     }
 
     public void getEndereco(String cep) {
+        apiInterface = ApiEndereco.getClient().create(ApiInterface.class);
         Call<EnderecoModel> call = apiInterface.getEnderecoCep(cep);
         call.enqueue(new Callback<EnderecoModel>() {
             @Override

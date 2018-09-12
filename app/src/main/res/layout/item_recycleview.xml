@@ -20,7 +20,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#0076a5"
+            android:background="#20B2AA"
             android:gravity="center"
             android:text="Edit"
             android:textColor="#fff"/>
@@ -30,7 +30,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#ff0000"
+            android:background="#00FFFF"
             android:gravity="center"
             android:text="Delete"
             android:textColor="#fff"/>

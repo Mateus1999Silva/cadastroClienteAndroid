@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente;
 
 import android.content.Context;
+import android.widget.ProgressBar;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 

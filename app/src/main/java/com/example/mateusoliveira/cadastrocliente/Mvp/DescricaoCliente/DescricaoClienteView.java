@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.R;
+import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 import com.example.mateusoliveira.cadastrocliente.utils.MaskUtils;
 
 import java.text.SimpleDateFormat;
@@ -115,12 +116,19 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         datePicker();
     }
 
-    @OnFocusChange(R.id.editLogradouro)
-    public void cep() {
-        if (presenter.validationInternetCep() && txtCep.getText().toString().length() == 9) {
-            progressBar.setVisibility(View.VISIBLE);
-            presenter.cep();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        txtCep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus && presenter.validationInternetCep() &&
+                        ClienteValidationsUtils.cepIsValid(txtCep.getText().toString())) {
+                    progress().setVisibility(View.VISIBLE);
+                    presenter.cep();
+                }
+            }
+        });
     }
 
     @Override
