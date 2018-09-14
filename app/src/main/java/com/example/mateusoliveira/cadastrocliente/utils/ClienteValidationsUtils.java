@@ -2,8 +2,11 @@ package com.example.mateusoliveira.cadastrocliente.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,16 +26,19 @@ public class ClienteValidationsUtils {
         }
     }
 
-    public static boolean dates(TextView date) {
-
+    public static boolean dates(TextView date, TextView view) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataAtual = new Date();
         try {
             if (date.equals(null) || date.getText().toString().isEmpty()) {
-                date.setError("Preencha o campo de data");
+                view.setError("Preencha o campo de data");
+                view.requestFocus();
+                view.setFocusable(true);
                 return false;
             } else if (sdf.parse(date.getText().toString()).getTime() > dataAtual.getTime()) {
-                date.setError("Data inválida, não pode ser maior que a data de hoje");
+                view.setError("Data inválida, não pode ser maior que a data de hoje");
+                view.requestFocus();
+                view.setFocusable(true);
                 return false;
             }
         } catch (ParseException e) {
@@ -51,6 +57,7 @@ public class ClienteValidationsUtils {
         } else {
             for (EditText campoCep : camposEditText) {
                 campoCep.setFocusable(true);
+                campoCep.requestFocus();
                 campoCep.setError("Sem acesso a internet, preencha as informações");
             }
             return false;
@@ -64,6 +71,7 @@ public class ClienteValidationsUtils {
                 .replaceAll(",", "");
 
         if (!sequenceIsInvalid(CPF)) {
+            editCpf.requestFocus();
             editCpf.setError("CPF Inválido");
             return (false);
         }
@@ -108,10 +116,12 @@ public class ClienteValidationsUtils {
             if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
                 return (true);
             } else {
+                editCpf.requestFocus();
                 editCpf.setError("Cpf Inválido");
                 return (false);
             }
         } catch (InputMismatchException erro) {
+            editCpf.requestFocus();
             editCpf.setError("Cpf Inválido");
             return (false);
         }

@@ -75,11 +75,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/textData"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editCpf" />
+
+        <TextView
+            android:id="@+id/viewErroNascimento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintTop_toBottomOf="@+id/textDataNascimento"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/textCep"
@@ -88,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="@string/textViewCep"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textDataNascimento" />
+            app:layout_constraintTop_toBottomOf="@+id/viewErroNascimento" />
 
         <EditText
             android:id="@+id/editCep"

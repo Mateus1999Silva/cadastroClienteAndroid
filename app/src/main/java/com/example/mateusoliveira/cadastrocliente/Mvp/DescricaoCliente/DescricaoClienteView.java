@@ -62,6 +62,9 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @BindView(R.id.editComplemento)
     EditText complemento;
 
+    @BindView(R.id.viewErroNascimento)
+    TextView errorTextNascimento;
+
     @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
     List<EditText> edits;
 
@@ -217,6 +220,11 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @Override
     public EditText getComplemento() {
         return complemento;
+    }
+
+    @Override
+    public TextView getTextViewError() {
+        return errorTextNascimento;
     }
 
     @Override

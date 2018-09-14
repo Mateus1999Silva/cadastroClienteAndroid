@@ -21,6 +21,7 @@ public interface ClienteCadastroContrato {
         EditText getEstado();
         EditText getLogradrouro();
         EditText getComplemento();
+        TextView getTextViewError();
         void setBairro(String bairro);
         void setEstado(String estado);
         void setLogradrouro(String logradouro);

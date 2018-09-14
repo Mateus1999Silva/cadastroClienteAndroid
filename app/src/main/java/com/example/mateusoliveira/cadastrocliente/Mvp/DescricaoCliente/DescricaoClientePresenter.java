@@ -68,7 +68,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         return  (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
                 ClienteValidationsUtils.validateCPF(view.getCpf()) &&
-                ClienteValidationsUtils.dates(view.getDataNascimento()) &&
+                ClienteValidationsUtils.dates(view.getDataNascimento(), view.getTextViewError()) &&
                 ClienteValidationsUtils.EditEmpty(view.getCep()) &&
                 ClienteValidationsUtils.EditEmpty(view.getBairro()) &&
                 ClienteValidationsUtils.EditEmpty(view.getEstado()) &&

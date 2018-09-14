@@ -32,9 +32,6 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.editCpf)
     EditText cpf;
 
-    @BindView(R.id.button)
-    Button btnDataNascimento;
-
     @BindView(R.id.textDataNascimento)
     TextView txtDataNascimento;
 
@@ -59,6 +56,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.editComplemento)
     EditText editComplemento;
 
+    @BindView(R.id.viewErroNascimento)
+    TextView textErrorNascimento;
+
     @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
     List<EditText> edits;
 
@@ -82,7 +82,6 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         int day = calendario.get(Calendar.DAY_OF_MONTH);
         int month = calendario.get(Calendar.MONTH);
         final int year = calendario.get(Calendar.YEAR);
-
         datePickerDialog = new DatePickerDialog(ClienteCadastroView.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
@@ -106,8 +105,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         cep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus && presenter.validationInternetCep() &&
-                        ClienteValidationsUtils.cepIsValid(cep.getText().toString())) {
+                if (!hasFocus && presenter.validationInternetCep() && ClienteValidationsUtils.validateCPF(cpf)) {
                     progress().setVisibility(View.VISIBLE);
                     presenter.apiCep();
                 }
@@ -145,6 +143,11 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @Override
     public TextView getDataNascimento() {
         return txtDataNascimento;
+    }
+
+    @Override
+    public TextView getTextViewError() {
+        return  textErrorNascimento;
     }
 
     @Override

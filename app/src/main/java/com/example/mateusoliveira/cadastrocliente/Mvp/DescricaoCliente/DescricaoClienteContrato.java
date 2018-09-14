@@ -34,6 +34,7 @@ public interface DescricaoClienteContrato {
         EditText getEstado();
         EditText getLogradouro();
         EditText getComplemento();
+        TextView getTextViewError();
         void setNome(String nome);
         void setCpf(String cpf);
         void setDataNascimento(String dataNascimento);
