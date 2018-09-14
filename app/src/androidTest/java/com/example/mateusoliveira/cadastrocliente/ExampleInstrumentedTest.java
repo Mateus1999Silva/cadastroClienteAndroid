@@ -57,10 +57,9 @@ public class ExampleInstrumentedTest {
         onView(withId(R.id.textDataNascimento)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2018, 5, 23));
         onView(withText("OK")).perform(click());
-///        onView(withId(R.id.textDataNascimento)).check(matches(withText("23/9/2018")));
         onView(withId(R.id.editCep)).perform(typeText("08190420"), closeSoftKeyboard());
         onView(withId(R.id.editNumero)).perform(pressImeActionButton(), closeSoftKeyboard());
-//        onView((withId(R.id.loading ))).check(matches(isDisplayed()));
+//        onView((withId(R.id.loading))).check(matches(isDisplayed()));
 //        onView(withId(R.id.editLogradouro)).perform(typeText("Rua 235"));
 //        onView(withId(R.id.editBairro)).perform(typeText("vila itaim"));
 //        onView(withId(R.id.editEstado)).perform(typeText("São Paulo"));
