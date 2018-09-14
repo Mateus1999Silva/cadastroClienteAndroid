@@ -9,15 +9,25 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
 
     @Test
-    public void validationCpf(){
+    public void validationCpfInvalid(){
         boolean actual = ClienteValidationsUtils.sequenceIsInvalid("1111111111");
         boolean expected = false;
         assertEquals(actual, expected);
     }
+
+    @Test
+    public void validationCpfSucess(){
+        boolean actual = ClienteValidationsUtils.sequenceIsInvalid("32386767841");
+        boolean expected = true;
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void internetOn(){
+
+    }
+
+
 }
