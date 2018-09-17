@@ -25,8 +25,30 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void internetOn(){
+    public void campoEstaVazio(){
+        boolean actual = ClienteValidationsUtils.EditEmpty("");
+        boolean expected = false;
+        assertEquals(actual, expected);
+    }
 
+    @Test
+    public void campoNaoEstaVazio(){
+        boolean actual = ClienteValidationsUtils.EditEmpty("Mateus");
+        boolean expected = true;
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void cpfValido(){
+        boolean actual = ClienteValidationsUtils.validateCPF("43924487898");
+        boolean expected = true;
+        assertEquals(actual, expected);
+    }
+    @Test
+    public void cpfInvalido(){
+        boolean actual = ClienteValidationsUtils.validateCPF("4392448789");
+        boolean expected = false;
+        assertEquals(actual,expected);
     }
 
 
