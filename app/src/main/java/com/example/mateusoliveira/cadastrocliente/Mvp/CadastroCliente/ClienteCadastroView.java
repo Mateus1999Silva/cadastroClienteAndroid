@@ -59,9 +59,6 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.viewErroNascimento)
     TextView textErrorNascimento;
 
-    @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
-    List<EditText> edits;
-
     private Calendar calendario;
     private DatePickerDialog datePickerDialog;
     private ClienteCadastroContrato.clienteCadastroPresenter presenter;
@@ -105,7 +102,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         cep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus && presenter.validationInternetCep() && ClienteValidationsUtils.validateCPF(cpf)) {
+                if (!hasFocus && presenter.validacaoBuscaCep()) {
                     progress().setVisibility(View.VISIBLE);
                     presenter.apiCep();
                 }
@@ -115,14 +112,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
 
     @OnClick(R.id.button)
     public void insertCliente() {
-        if (presenter.validationsEdits()) {
+        if (presenter.validacaoCampos())
             presenter.insert();
-        }
-    }
 
-    @Override
-    public List<EditText> camposCep() {
-        return edits;
     }
 
     @Override
@@ -147,7 +139,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
 
     @Override
     public TextView getTextViewError() {
-        return  textErrorNascimento;
+        return textErrorNascimento;
     }
 
     @Override

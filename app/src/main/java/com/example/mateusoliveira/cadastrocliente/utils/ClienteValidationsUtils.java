@@ -16,63 +16,39 @@ import java.util.List;
 
 public class ClienteValidationsUtils {
 
-    public static boolean EditEmpty(EditText editValidation) {
-        if (editValidation.getText().toString().isEmpty()) {
-            editValidation.setError("Campo Vazio, Preencha as informações");
-            editValidation.requestFocus();
+    public static boolean EditEmpty(String editValidation) {
+        if (editValidation.isEmpty()) {
             return false;
         } else {
             return true;
         }
     }
 
-    public static boolean dates(TextView date, TextView view) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    public static boolean dates(Date date) {
         Date dataAtual = new Date();
-        try {
-            if (date.equals(null) || date.getText().toString().isEmpty()) {
-                view.setError("Preencha o campo de data");
-                view.requestFocus();
-                view.setFocusable(true);
-                return false;
-            } else if (sdf.parse(date.getText().toString()).getTime() > dataAtual.getTime()) {
-                view.setError("Data inválida, não pode ser maior que a data de hoje");
-                view.requestFocus();
-                view.setFocusable(true);
-                return false;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if (date.getTime() > dataAtual.getTime()) {
+            return false;
         }
         return true;
     }
 
-    public static boolean connectionInternet(Context context, List<EditText> camposEditText) {
+    public static boolean connectionInternet(Context context) {
         ConnectivityManager conectivtyManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (conectivtyManager.getActiveNetworkInfo() != null
                 && conectivtyManager.getActiveNetworkInfo().isAvailable()
                 && conectivtyManager.getActiveNetworkInfo().isConnected()) {
-
             return true;
-        } else {
-            for (EditText campoCep : camposEditText) {
-                campoCep.setFocusable(true);
-                campoCep.requestFocus();
-                campoCep.setError("Sem acesso a internet, preencha as informações");
-            }
-            return false;
         }
+        return false;
     }
 
-    public static boolean validateCPF(EditText editCpf) {
-        String CPF = editCpf.getText().toString().replaceAll("[.]", "").replaceAll("[-]", "")
+    public static boolean validateCPF(String editCpf) {
+        String CPF = editCpf.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")
                 .replaceAll("[)]", "").replaceAll(" ", "")
                 .replaceAll(",", "");
 
         if (!sequenceIsInvalid(CPF)) {
-            editCpf.requestFocus();
-            editCpf.setError("CPF Inválido");
             return (false);
         }
 
@@ -84,11 +60,11 @@ public class ClienteValidationsUtils {
             // Calculo do 1o. Digito Verificador
             sm = 0;
             peso = 10;
-            for (i = 0; i < 9; i++) {
+            for (i=0; i<9; i++) {
                 // converte o i-esimo caractere do CPF em um numero:
                 // por exemplo, transforma o caractere '0' no inteiro 0
                 // (48 eh a posicao de '0' na tabela ASCII)
-                num = (int) (CPF.charAt(i) - 48);
+                num = (int)(CPF.charAt(i) - 48);
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
@@ -96,13 +72,13 @@ public class ClienteValidationsUtils {
             r = 11 - (sm % 11);
             if ((r == 10) || (r == 11))
                 dig10 = '0';
-            else dig10 = (char) (r + 48); // converte no respectivo caractere numerico
+            else dig10 = (char)(r + 48); // converte no respectivo caractere numerico
 
             // Calculo do 2o. Digito Verificador
             sm = 0;
             peso = 11;
-            for (i = 0; i < 10; i++) {
-                num = (int) (CPF.charAt(i) - 48);
+            for(i=0; i<10; i++) {
+                num = (int)(CPF.charAt(i) - 48);
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
@@ -110,22 +86,15 @@ public class ClienteValidationsUtils {
             r = 11 - (sm % 11);
             if ((r == 10) || (r == 11))
                 dig11 = '0';
-            else dig11 = (char) (r + 48);
+            else dig11 = (char)(r + 48);
 
             // Verifica se os digitos calculados conferem com os digitos informados.
-            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10))) {
-                return (true);
-            } else {
-                editCpf.requestFocus();
-                editCpf.setError("Cpf Inválido");
-                return (false);
-            }
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
+                return(true);
+            else return(false);
         } catch (InputMismatchException erro) {
-            editCpf.requestFocus();
-            editCpf.setError("Cpf Inválido");
-            return (false);
+            return(false);
         }
-
     }
 
     public static boolean sequenceIsInvalid(String CPF) {

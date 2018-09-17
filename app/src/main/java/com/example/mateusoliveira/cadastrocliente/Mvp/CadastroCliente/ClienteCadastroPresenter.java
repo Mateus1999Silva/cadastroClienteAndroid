@@ -31,21 +31,88 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
     }
 
     @Override
-    public boolean validationInternetCep() {
-        return ClienteValidationsUtils.connectionInternet(view.getContext(), view.camposCep());
+    public boolean validacaoBuscaCep() {
+        if (!ClienteValidationsUtils.connectionInternet(view.getContext())) {
+            view.getBairro().setError("Sem acesso a internet, preencha a informação");
+            view.getEstado().setError("Sem acesso a internet, preencha a informação");
+            view.getLogradrouro().setError("Sem acesso a internet, preencha a informação");
+            return false;
+        } else if (!ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
+            view.getCep().setError("Cep Inválido");
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean validationsEdits() {
-        return (ClienteValidationsUtils.EditEmpty(view.getNome()) &&
-                ClienteValidationsUtils.EditEmpty(view.getCpf()) &&
-                ClienteValidationsUtils.validateCPF(view.getCpf()) &&
-                ClienteValidationsUtils.dates(view.getDataNascimento(), view.getTextViewError()) &&
-                ClienteValidationsUtils.EditEmpty(view.getCep()) &&
-                ClienteValidationsUtils.EditEmpty(view.getBairro()) &&
-                ClienteValidationsUtils.EditEmpty(view.getEstado()) &&
-                ClienteValidationsUtils.EditEmpty(view.getLogradrouro()) &&
-                ClienteValidationsUtils.EditEmpty(view.getNumero()));
+    public boolean validacaoCampos() {
+        if (!ClienteValidationsUtils.EditEmpty(view.getNome().getText().toString())) {
+            view.getNome().setError("Campo inválido, preencha a informação");
+            view.getNome().requestFocus();
+            return false;
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getCpf().getText().toString())) {
+            view.getCpf().setError("Campo Vazio, preencha a informação");
+            view.getCpf().requestFocus();
+            return false;
+        } else if (!ClienteValidationsUtils.validateCPF(view.getCpf().getText().toString())) {
+            view.getCpf().setError("Cpf Inválido, preencha com um cpf válido");
+            view.getCpf().requestFocus();
+            return false;
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            if (!ClienteValidationsUtils.EditEmpty(view.getDataNascimento().getText().toString())) {
+                view.getTextViewError().setError("Selecione uma data");
+                view.getTextViewError().requestFocus();
+                return false;
+
+            } else if (!ClienteValidationsUtils.dates(sdf.parse(view.getDataNascimento().getText().toString()))) {
+                view.getTextViewError().setError("Data inválida, Data maior que a data de hoje");
+                view.getTextViewError().requestFocus();
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getCep().getText().toString())) {
+            view.getCep().setError("Campo Vazio, preencha a informação");
+            view.getCep().requestFocus();
+            return false;
+        } else if (!ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
+            view.getCep().setError("Campo Inválido, preencha a informação");
+            view.getCep().requestFocus();
+            return false;
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getLogradrouro().getText().toString())) {
+            view.getLogradrouro().setError("Campo inválido, preencha a informação");
+            view.getLogradrouro().requestFocus();
+            return false;
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getBairro().getText().toString())) {
+            view.getBairro().setError("Campo inválido, preencha a informação");
+            view.getBairro().requestFocus();
+            return false;
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getEstado().getText().toString())) {
+            view.getEstado().setError("Campo inválido, preencha a informação");
+            view.getEstado().requestFocus();
+            return false;
+        }
+
+        if (!ClienteValidationsUtils.EditEmpty(view.getNumero().getText().toString())) {
+            view.getNumero().setError("Campo inválido, preencha a informação");
+            view.getNumero().requestFocus();
+            return false;
+        }
+        return true;
     }
 
     @Override

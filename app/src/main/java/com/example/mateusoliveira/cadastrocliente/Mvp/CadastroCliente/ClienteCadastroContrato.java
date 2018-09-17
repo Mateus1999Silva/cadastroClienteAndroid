@@ -26,7 +26,6 @@ public interface ClienteCadastroContrato {
         void setEstado(String estado);
         void setLogradrouro(String logradouro);
         ProgressBar progress();
-        List<EditText> camposCep();
     }
     interface clienteCadastroPresenter{
         void setView(ClienteCadastroView view);
@@ -34,7 +33,7 @@ public interface ClienteCadastroContrato {
         List<ClienteModel> readClientes();
         ClienteModel readCliente(int id);
         void apiCep();
-        boolean validationsEdits();
-        boolean validationInternetCep();
+        boolean validacaoCampos();
+        boolean validacaoBuscaCep();
     }
 }

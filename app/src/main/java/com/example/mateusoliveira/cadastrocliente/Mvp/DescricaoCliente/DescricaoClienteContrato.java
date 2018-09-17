@@ -18,8 +18,8 @@ public interface DescricaoClienteContrato {
         void editarCliente(long idCliente, long idEndereco);
         void preencherDados(ClienteModel clienteModel , EnderecoModel enderecoModel);
         void cep();
-        boolean validations();
-        boolean validationInternetCep();
+        boolean validacaoCampos();
+        boolean validacaoBuscaCep();
     }
 
     interface DescricaoClienteView{
@@ -46,6 +46,5 @@ public interface DescricaoClienteContrato {
         void setLogradrouro(String logradouro);
         void editarCliente();
         ProgressBar progress();
-        List<EditText> camposCep();
     }
 }

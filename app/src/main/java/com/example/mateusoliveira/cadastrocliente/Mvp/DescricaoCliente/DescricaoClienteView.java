@@ -65,9 +65,6 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @BindView(R.id.viewErroNascimento)
     TextView errorTextNascimento;
 
-    @BindViews({R.id.editEstado, R.id.editLogradouro, R.id.editBairro})
-    List<EditText> edits;
-
     private DescricaoClienteContrato.DescricaoClientePresenter presenter;
     private DatePickerDialog datePickerDialog;
 
@@ -125,8 +122,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         txtCep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus && presenter.validationInternetCep() &&
-                        ClienteValidationsUtils.cepIsValid(txtCep.getText().toString())) {
+                if (!hasFocus && presenter.validacaoBuscaCep()){
                     progress().setVisibility(View.VISIBLE);
                     presenter.cep();
                 }
@@ -146,7 +142,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @OnClick(R.id.buttonEditar)
     @Override
     public void editarCliente() {
-        if (presenter.validations()) {
+        if (presenter.validacaoCampos()) {
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
             EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
@@ -158,11 +154,6 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @Override
     public ProgressBar progress() {
         return progressBar;
-    }
-
-    @Override
-    public List<EditText> camposCep() {
-        return edits;
     }
 
     @Override
@@ -229,7 +220,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
 
     @Override
     public void setComplemento(String complemento) {
-       this.complemento.setText(complemento);
+        this.complemento.setText(complemento);
     }
 
     @Override
