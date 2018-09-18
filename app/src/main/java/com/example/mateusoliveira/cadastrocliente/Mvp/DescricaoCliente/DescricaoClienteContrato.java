@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Context;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,7 +20,8 @@ public interface DescricaoClienteContrato {
         void preencherDados(ClienteModel clienteModel , EnderecoModel enderecoModel);
         void cep();
         boolean validacaoCampos();
-        boolean validacaoBuscaCep();
+        void validacaoBuscaCep(boolean hasFocus);
+        //void optionsMenu(MenuItem menuItem);
     }
 
     interface DescricaoClienteView{
@@ -46,5 +48,6 @@ public interface DescricaoClienteContrato {
         void setLogradrouro(String logradouro);
         void editarCliente();
         ProgressBar progress();
+       // int itemMenu();
     }
 }

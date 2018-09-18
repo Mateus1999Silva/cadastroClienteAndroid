@@ -2,12 +2,14 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.example.mateusoliveira.cadastrocliente.Dao.ClienteDao;
 import com.example.mateusoliveira.cadastrocliente.Dao.EnderecoDao;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente.DescricaoClienteView;
+import com.example.mateusoliveira.cadastrocliente.RecyrcleView.Adapter.RecyrcleViewAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,10 +21,19 @@ public class ListClientePresenter implements ListClienteContrato.ListClientePres
 
     private ListClienteContrato.ListClienteView view;
     private List<ClienteModel> listCliente;
+    private RecyrcleViewAdapter recyrcleViewAdapter;
 
     @Override
     public void setView(ListClienteContrato.ListClienteView view) {
         this.view = view;
+    }
+
+    @Override
+    public void dataRecyclerView() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
+        view.getRecyclerView().setLayoutManager(linearLayoutManager);
+        recyrcleViewAdapter = new RecyrcleViewAdapter(readCliente(), view.getContext(), this);
+        view.getRecyclerView().setAdapter(recyrcleViewAdapter);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Intent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,17 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         this.view = view;
     }
 
+
+//    @Override
+//    public void optionsMenu(MenuItem menuItem) {
+//
+////        switch (menuItem.getItemId()) {
+////            case view.itemMenu():
+////                getInformacoesMapa();
+////                break;
+////        }
+//    }
+
     @Override
     public void getInformacoesMapa() {
         String bairro = view.getBairro().getText().toString();
@@ -43,7 +55,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
             Intent intent = new Intent(view.getContext(), MapClienteView.class);
             intent.putExtra("endereco", endereco.toString());
             view.getContext().startActivity(intent);
-        }else{
+        } else {
             Toast.makeText(view.getContext(), "Mapa indisponivel, sem acesso a internet", Toast.LENGTH_SHORT).show();
         }
     }
@@ -145,17 +157,19 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     }
 
     @Override
-    public boolean validacaoBuscaCep() {
-        if (!ClienteValidationsUtils.connectionInternet(view.getContext())) {
+    public void validacaoBuscaCep(boolean hasFocus) {
+        if (!hasFocus && !ClienteValidationsUtils.connectionInternet(view.getContext())) {
+            view.progress().setVisibility(View.VISIBLE);
             view.getBairro().setError("Sem acesso a internet, preencha a informação");
             view.getEstado().setError("Sem acesso a internet, preencha a informação");
             view.getLogradouro().setError("Sem acesso a internet, preencha a informação");
-            return false;
-        } else if (!ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
+
+        } else if (!hasFocus && !ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
             view.getCep().setError("Cep Inválido");
-            return false;
+
+        } else if (!hasFocus) {
+            cep();
         }
-        return true;
     }
 
     @Override
@@ -175,18 +189,21 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     @Override
     public void editarCliente(long idCliente, long idEndereco) {
 
-        try {
-            ClienteDao clienteDao = new ClienteDao(view.getContext());
-            clienteDao.update(createClienteModel(idCliente, idEndereco));
+        if (validacaoCampos()) {
+            try {
+                ClienteDao clienteDao = new ClienteDao(view.getContext());
+                clienteDao.update(createClienteModel(idCliente, idEndereco));
 
-            EnderecoDao enderecoDao = new EnderecoDao(view.getContext());
-            enderecoDao.update(createEnderecoModel(idCliente, idEndereco));
-        } catch (Exception e) {
-            e.printStackTrace();
+                EnderecoDao enderecoDao = new EnderecoDao(view.getContext());
+                enderecoDao.update(createEnderecoModel(idCliente, idEndereco));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(view.getContext(), ListClienteView.class);
+            view.getContext().startActivity(intent);
         }
 
-        Intent intent = new Intent(view.getContext(), ListClienteView.class);
-        view.getContext().startActivity(intent);
     }
 
     public ClienteModel createClienteModel(long idCliente, long idEndereco) {

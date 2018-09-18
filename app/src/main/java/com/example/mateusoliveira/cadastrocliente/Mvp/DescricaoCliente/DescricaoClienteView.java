@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -17,18 +16,14 @@ import android.widget.TextView;
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.R;
-import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 import com.example.mateusoliveira.cadastrocliente.utils.MaskUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
 public class DescricaoClienteView extends AppCompatActivity implements DescricaoClienteContrato.DescricaoClienteView {
 
@@ -122,10 +117,7 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         txtCep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus && presenter.validacaoBuscaCep()){
-                    progress().setVisibility(View.VISIBLE);
-                    presenter.cep();
-                }
+                presenter.validacaoBuscaCep(hasFocus);
             }
         });
     }
@@ -142,19 +134,22 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     @OnClick(R.id.buttonEditar)
     @Override
     public void editarCliente() {
-        if (presenter.validacaoCampos()) {
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
             EnderecoModel enderecoModel = (EnderecoModel) bundle.getSerializable("endereco");
             ClienteModel clienteModel = (ClienteModel) bundle.getSerializable("cliente");
             presenter.editarCliente(clienteModel.getId(), enderecoModel.getId());
-        }
     }
 
     @Override
     public ProgressBar progress() {
         return progressBar;
     }
+
+//    @Override
+//    public int itemMenu() {
+//        return R.id.itemMenuMap;
+//    }
 
     @Override
     public Context getContext() {

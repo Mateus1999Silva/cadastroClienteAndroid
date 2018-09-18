@@ -3,6 +3,7 @@ package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +60,9 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.viewErroNascimento)
     TextView textErrorNascimento;
 
+    @BindView(R.id.layoutViewDescricao)
+    ConstraintLayout constraintLayout;
+
     private Calendar calendario;
     private DatePickerDialog datePickerDialog;
     private ClienteCadastroContrato.clienteCadastroPresenter presenter;
@@ -102,19 +106,14 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
         cep.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus && presenter.validacaoBuscaCep()) {
-                    progress().setVisibility(View.VISIBLE);
-                    presenter.apiCep();
-                }
+                presenter.validacaoBuscaCep(hasFocus);
             }
         });
     }
 
     @OnClick(R.id.button)
     public void insertCliente() {
-        if (presenter.validacaoCampos())
             presenter.insert();
-
     }
 
     @Override

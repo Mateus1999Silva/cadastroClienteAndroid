@@ -43,8 +43,13 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
         ButterKnife.bind(this);
         presenter = new ListClientePresenter();
         presenter.setView(ListClienteView.this);
-        recyrcleView();
+        populationRecyclerView();
 
+    }
+
+    @Override
+    public void populationRecyclerView() {
+        presenter.dataRecyclerView();
     }
 
     @OnClick(R.id.floatingButton)
@@ -54,28 +59,12 @@ public class ListClienteView extends AppCompatActivity implements ListClienteCon
     }
 
     @Override
-    public boolean deleteCliente(int idCliente, int idEndereco) {
-        if(presenter.deleteClienteRecyrcleView(idCliente,idEndereco)){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void editarCliente(ClienteModel clienteModel) {
-        presenter.editarClienteRecyclerView(clienteModel);
-    }
-
-    @Override
     public Context getContext() {
         return this;
     }
 
     @Override
-    public void recyrcleView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyrcle.setLayoutManager(linearLayoutManager);
-        recyrcleViewAdapter = new RecyrcleViewAdapter(presenter.readCliente(), this, this);
-        recyrcle.setAdapter(recyrcleViewAdapter);
+    public RecyclerView getRecyclerView() {
+        return recyrcle;
     }
 }

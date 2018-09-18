@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.ListCliente;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
 import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
@@ -14,12 +15,12 @@ public interface ListClienteContrato {
         void editarClienteRecyclerView(ClienteModel clienteModel);
         void setView(ListClienteView view);
         List<ClienteModel> readCliente();
+        void dataRecyclerView();
     }
 
     interface ListClienteView{
-        boolean deleteCliente(int idCliente, int idEndereco);
-        void editarCliente(ClienteModel clienteModel);
         Context getContext();
-        void recyrcleView();
+        void populationRecyclerView();
+        RecyclerView getRecyclerView();
     }
 }

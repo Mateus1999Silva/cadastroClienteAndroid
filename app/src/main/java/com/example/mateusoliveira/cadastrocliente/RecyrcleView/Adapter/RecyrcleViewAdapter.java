@@ -31,12 +31,12 @@ import butterknife.ButterKnife;
 public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapter.ViewHolder> {
     private List<ClienteModel> dados;
     private Context context;
-    private ListClienteContrato.ListClienteView view;
+    private ListClienteContrato.ListClientePresenter presenter;
 
-    public RecyrcleViewAdapter(List<ClienteModel> dados, Context context, ListClienteContrato.ListClienteView view) {
+    public RecyrcleViewAdapter(List<ClienteModel> dados, Context context, ListClienteContrato.ListClientePresenter presenter) {
         this.dados = dados;
         this.context = context;
-        this.view = view;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -99,7 +99,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
             @Override
             public void onClick(View v) {
                 ClienteModel clienteModel = dados.get(position);
-                view.editarCliente(clienteModel);
+                presenter.editarClienteRecyclerView(clienteModel);
             }
         });
 
@@ -115,7 +115,7 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
                                 ClienteModel clienteModel = dados.get(position);
                                 int idCliente = (int) clienteModel.getId();
                                 int idEndereco = clienteModel.getEnderecoCliente().getId();
-                                if (view.deleteCliente(idCliente, idEndereco)) {
+                                if (presenter.deleteClienteRecyrcleView(idCliente, idEndereco)) {
                                     dados.remove(position);
                                     notifyItemRemoved(position);
                                 }

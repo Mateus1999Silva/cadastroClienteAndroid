@@ -31,17 +31,18 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
     }
 
     @Override
-    public boolean validacaoBuscaCep() {
-        if (!ClienteValidationsUtils.connectionInternet(view.getContext())) {
+    public void validacaoBuscaCep(boolean hasFocus) {
+        if (!hasFocus && !ClienteValidationsUtils.connectionInternet(view.getContext())) {
+            view.progress().setVisibility(View.VISIBLE);
             view.getBairro().setError("Sem acesso a internet, preencha a informação");
             view.getEstado().setError("Sem acesso a internet, preencha a informação");
             view.getLogradrouro().setError("Sem acesso a internet, preencha a informação");
-            return false;
-        } else if (!ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
+        } else if (!hasFocus && !ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
             view.getCep().setError("Cep Inválido");
-            return false;
+            view.getCep().requestFocus();
+        } else if (!hasFocus) {
+            apiCep();
         }
-        return true;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
             view.getCpf().setError("Campo Vazio, preencha a informação");
             view.getCpf().requestFocus();
             return false;
+
         } else if (!ClienteValidationsUtils.validateCPF(view.getCpf().getText().toString())) {
             view.getCpf().setError("Cpf Inválido, preencha com um cpf válido");
             view.getCpf().requestFocus();
@@ -83,6 +85,7 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
             view.getCep().setError("Campo Vazio, preencha a informação");
             view.getCep().requestFocus();
             return false;
+
         } else if (!ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
             view.getCep().setError("Campo Inválido, preencha a informação");
             view.getCep().requestFocus();
@@ -117,19 +120,21 @@ public class ClienteCadastroPresenter implements ClienteCadastroContrato.cliente
 
     @Override
     public void insert() {
-        try {
-            clienteDao = new ClienteDao(this.view.getContext());
-            long cliente = clienteDao.createUser(createClienteModel());
+        if (validacaoCampos()) {
+            try {
+                clienteDao = new ClienteDao(this.view.getContext());
+                long cliente = clienteDao.createUser(createClienteModel());
 
-            enderecoDao = new EnderecoDao(this.view.getContext());
-            enderecoDao.createAddres(createEnderecoModel(cliente));
+                enderecoDao = new EnderecoDao(this.view.getContext());
+                enderecoDao.createAddres(createEnderecoModel(cliente));
 
-            Toast.makeText(view.getContext(), "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this.view.getContext(), ListClienteView.class);
-            view.getContext().startActivity(intent);
+                Toast.makeText(view.getContext(), "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this.view.getContext(), ListClienteView.class);
+                view.getContext().startActivity(intent);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
