@@ -146,11 +146,6 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
         return progressBar;
     }
 
-//    @Override
-//    public int itemMenu() {
-//        return R.id.itemMenuMap;
-//    }
-
     @Override
     public Context getContext() {
         return this;

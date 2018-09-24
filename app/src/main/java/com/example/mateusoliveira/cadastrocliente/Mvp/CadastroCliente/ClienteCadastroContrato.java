@@ -1,6 +1,7 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,6 +41,8 @@ public interface ClienteCadastroContrato {
         void setLogradrouro(String logradouro);
 
         ProgressBar progress();
+
+        ConstraintLayout constraintLayout();
     }
 
     interface clienteCadastroPresenter {

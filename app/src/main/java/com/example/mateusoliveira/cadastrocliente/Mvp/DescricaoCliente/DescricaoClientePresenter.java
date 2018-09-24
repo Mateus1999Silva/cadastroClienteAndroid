@@ -1,7 +1,6 @@
 package com.example.mateusoliveira.cadastrocliente.Mvp.DescricaoCliente;
 
 import android.content.Intent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,8 +16,6 @@ import com.example.mateusoliveira.cadastrocliente.utils.ClienteValidationsUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class DescricaoClientePresenter implements DescricaoClienteContrato.DescricaoClientePresenter, SyncResult {
 
@@ -29,17 +26,6 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
     public void setView(DescricaoClienteContrato.DescricaoClienteView view) {
         this.view = view;
     }
-
-
-//    @Override
-//    public void optionsMenu(MenuItem menuItem) {
-//
-////        switch (menuItem.getItemId()) {
-////            case view.itemMenu():
-////                getInformacoesMapa();
-////                break;
-////        }
-//    }
 
     @Override
     public void getInformacoesMapa() {
@@ -136,17 +122,18 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
             return false;
         }
 
+        if (!ClienteValidationsUtils.EditEmpty(view.getNumero().getText().toString())) {
+            view.getNumero().setError("Campo inválido, preencha a informação");
+            view.getNumero().requestFocus();
+            return false;
+        }
+
         if (!ClienteValidationsUtils.EditEmpty(view.getEstado().getText().toString())) {
             view.getEstado().setError("Campo inválido, preencha a informação");
             view.getEstado().requestFocus();
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getNumero().getText().toString())) {
-            view.getNumero().setError("Campo inválido, preencha a informação");
-            view.getNumero().requestFocus();
-            return false;
-        }
         return true;
     }
 
@@ -158,16 +145,16 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
 
     @Override
     public void validacaoBuscaCep(boolean hasFocus) {
-        if (!hasFocus && !ClienteValidationsUtils.connectionInternet(view.getContext())) {
-            view.progress().setVisibility(View.VISIBLE);
-            view.getBairro().setError("Sem acesso a internet, preencha a informação");
-            view.getEstado().setError("Sem acesso a internet, preencha a informação");
-            view.getLogradouro().setError("Sem acesso a internet, preencha a informação");
-
-        } else if (!hasFocus && !ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
+        if (!hasFocus && !ClienteValidationsUtils.cepIsValid(view.getCep().getText().toString())) {
             view.getCep().setError("Cep Inválido");
+            view.getCep().clearFocus();
+
+        } else if (!hasFocus && !ClienteValidationsUtils.connectionInternet(view.getContext())) {
+            view.getCep().setError("Sem acesso a internet, preencha a informação");
+            view.getCep().clearFocus();
 
         } else if (!hasFocus) {
+            view.progress().setVisibility(View.VISIBLE);
             cep();
         }
     }

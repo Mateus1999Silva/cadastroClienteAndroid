@@ -57,8 +57,8 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @BindView(R.id.editComplemento)
     EditText editComplemento;
 
-    @BindView(R.id.viewErroNascimento)
-    TextView textErrorNascimento;
+    @BindView(R.id.viewErroNascimentoInsert)
+    TextView textErrorNascimentoInsert;
 
     @BindView(R.id.layoutViewDescricao)
     ConstraintLayout constraintLayout;
@@ -138,7 +138,7 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
 
     @Override
     public TextView getTextViewError() {
-        return textErrorNascimento;
+        return textErrorNascimentoInsert;
     }
 
     @Override
@@ -189,6 +189,11 @@ public class ClienteCadastroView extends AppCompatActivity implements ClienteCad
     @Override
     public ProgressBar progress() {
         return progressBar;
+    }
+
+    @Override
+    public ConstraintLayout constraintLayout() {
+        return constraintLayout;
     }
 
 }

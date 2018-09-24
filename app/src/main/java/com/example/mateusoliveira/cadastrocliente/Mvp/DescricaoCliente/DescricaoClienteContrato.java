@@ -21,7 +21,6 @@ public interface DescricaoClienteContrato {
         void cep();
         boolean validacaoCampos();
         void validacaoBuscaCep(boolean hasFocus);
-        //void optionsMenu(MenuItem menuItem);
     }
 
     interface DescricaoClienteView{
@@ -48,6 +47,5 @@ public interface DescricaoClienteContrato {
         void setLogradrouro(String logradouro);
         void editarCliente();
         ProgressBar progress();
-       // int itemMenu();
     }
 }
