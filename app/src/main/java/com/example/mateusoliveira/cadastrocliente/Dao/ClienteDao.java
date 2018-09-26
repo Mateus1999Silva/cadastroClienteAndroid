@@ -117,6 +117,7 @@ public class ClienteDao {
             db.close();
         }
         return clientes;
+
     }
 
     public ClienteModel readClienteId(int id) {
