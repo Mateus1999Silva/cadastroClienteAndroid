@@ -247,6 +247,4 @@ public class DescricaoClienteView extends AppCompatActivity implements Descricao
     public EditText getCep() {
         return txtCep;
     }
-
-
 }
