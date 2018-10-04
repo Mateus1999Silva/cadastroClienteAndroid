@@ -4,20 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import com.example.mateusoliveira.cadastrocliente.Model.ClienteModel;
 import com.example.mateusoliveira.cadastrocliente.Model.EnderecoModel;
 import com.example.mateusoliveira.cadastrocliente.SqLite.Sqlite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EnderecoDao {
 
     private Context context;
     private EnderecoModel enderecoModel;
-    private List<EnderecoModel> enderecoList;
+    //private List<EnderecoModel> enderecoList;
 
     public EnderecoDao(Context context) {
         this.context = context;
@@ -77,7 +74,7 @@ public class EnderecoDao {
         return enderecoModel;
     }
 
-    public EnderecoModel readEnderecoCliente(long id) {
+   /* public EnderecoModel readEnderecoCliente(long id) {
         Sqlite dmHelper = new Sqlite(this.context);
         SQLiteDatabase db = dmHelper.getWritableDatabase();
         StringBuilder stringBuilder = new StringBuilder();
@@ -108,7 +105,7 @@ public class EnderecoDao {
             cursor.close();
         }
         return enderecoModel;
-    }
+    }*/
 
     public boolean update(EnderecoModel endereco) {
         Sqlite dmHelper = new Sqlite(this.context);

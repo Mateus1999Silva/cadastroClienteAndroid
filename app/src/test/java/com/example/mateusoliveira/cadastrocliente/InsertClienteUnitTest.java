@@ -26,14 +26,14 @@ public class InsertClienteUnitTest {
 
     @Test
     public void campoEstaVazio(){
-        boolean actual = ClienteValidationsUtils.EditEmpty("");
+        boolean actual = ClienteValidationsUtils.editEmpty("");
         boolean expected = false;
         assertEquals(actual, expected);
     }
 
     @Test
     public void campoNaoEstaVazio(){
-        boolean actual = ClienteValidationsUtils.EditEmpty("Mateus");
+        boolean actual = ClienteValidationsUtils.editEmpty("Mateus");
         boolean expected = true;
         assertEquals(actual, expected);
     }

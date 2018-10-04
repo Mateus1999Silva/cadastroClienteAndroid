@@ -67,13 +67,13 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
 
     @Override
     public boolean validacaoCampos() {
-        if (!ClienteValidationsUtils.EditEmpty(view.getNome().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getNome().getText().toString())) {
             view.getNome().setError("Campo inválido, preencha a informação");
             view.getNome().requestFocus();
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getCpf().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getCpf().getText().toString())) {
             view.getCpf().setError("Campo Vazio, preencha a informação");
             view.getCpf().requestFocus();
             return false;
@@ -86,7 +86,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-            if (!ClienteValidationsUtils.EditEmpty(view.getDataNascimento().getText().toString())) {
+            if (!ClienteValidationsUtils.editEmpty(view.getDataNascimento().getText().toString())) {
                 view.getTextViewError().setError("Selecione uma data");
                 view.getTextViewError().requestFocus();
                 return false;
@@ -100,7 +100,7 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
             e.printStackTrace();
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getCep().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getCep().getText().toString())) {
             view.getCep().setError("Campo Vazio, preencha a informação");
             view.getCep().requestFocus();
             return false;
@@ -110,25 +110,25 @@ public class DescricaoClientePresenter implements DescricaoClienteContrato.Descr
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getLogradouro().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getLogradouro().getText().toString())) {
             view.getLogradouro().setError("Campo inválido, preencha a informação");
             view.getLogradouro().requestFocus();
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getBairro().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getBairro().getText().toString())) {
             view.getBairro().setError("Campo inválido, preencha a informação");
             view.getBairro().requestFocus();
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getNumero().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getNumero().getText().toString())) {
             view.getNumero().setError("Campo inválido, preencha a informação");
             view.getNumero().requestFocus();
             return false;
         }
 
-        if (!ClienteValidationsUtils.EditEmpty(view.getEstado().getText().toString())) {
+        if (!ClienteValidationsUtils.editEmpty(view.getEstado().getText().toString())) {
             view.getEstado().setError("Campo inválido, preencha a informação");
             view.getEstado().requestFocus();
             return false;

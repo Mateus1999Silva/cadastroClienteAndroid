@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import com.example.mateusoliveira.cadastrocliente.Mvp.CadastroCliente.ClienteCadastroView;
 
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,20 +36,19 @@ import static org.hamcrest.core.AllOf.allOf;
 @LargeTest
 public class InsertClienteInstrumentedTest {
 
+    Robot robot;
+
     @Rule
     public ActivityTestRule<ClienteCadastroView> mActivityRule = new ActivityTestRule<>(ClienteCadastroView.class);
 
+    @Before
+    public void setUp(){
+        robot = new Robot();
+    }
+
     @Test
     public void testInsertClientDadosValidos() {
-        onView(withId(R.id.editNomeCompleto)).perform(typeText("Mateus"), closeSoftKeyboard());
-        onView(withId(R.id.editCpf)).perform(typeText("43924487898"), closeSoftKeyboard());
-        onView(withId(R.id.textDataNascimento)).perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2018, 5, 23));
-        onView(withText("OK")).perform(click());
-        onView(withId(R.id.editCep)).perform(typeText("08190420"), closeSoftKeyboard());
-        onView(withId(R.id.editNumero)).perform(typeText("899"), closeSoftKeyboard());
-        onView(withId(R.id.editComplemento)).perform(typeText("Bloco a"), closeSoftKeyboard());
-        onView(withId(R.id.button)).perform(click());
+        robot.insertClient();
     }
 
     @Test

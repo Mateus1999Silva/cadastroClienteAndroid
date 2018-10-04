@@ -61,7 +61,6 @@ public class ListClientePresenter implements ListClienteContrato.ListClientePres
     @Override
     public List<ClienteModel> readCliente() {
         ClienteDao clienteDao = new ClienteDao(view.getContext());
-        listCliente = new ArrayList();
         listCliente = clienteDao.readClientes();
         return listCliente;
     }
