@@ -49,10 +49,10 @@ public class RecyrcleViewAdapter extends RecyclerView.Adapter<RecyrcleViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
-        final ClienteModel item = dados.get(position);
         if (dados != null && dados.size() > 0) {
-                viewHolder.txtCpf.setText(item.getCpf());
-                viewHolder.txtNome.setText(item.getNome());
+            final ClienteModel item = dados.get(position);
+            viewHolder.txtCpf.setText(item.getCpf());
+            viewHolder.txtNome.setText(item.getNome());
 
 
             viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);

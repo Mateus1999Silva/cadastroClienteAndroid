@@ -29,7 +29,7 @@
             style="@style/textViewTitle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/textNomeCompleto"
@@ -82,7 +82,7 @@
             android:textAlignment="center"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editCpf" />
+            app:layout_constraintTop_toBottomOf="@+id/editCpf"/>
 
         <TextView
             android:id="@+id/viewErroNascimentoInsert"
@@ -112,6 +112,7 @@
             android:inputType="number"
             android:imeOptions="actionSearch"
             android:maxLength="@integer/maxLines_medium"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textCep"
             app:layout_constraintRight_toRightOf="parent"
             style="@style/StyleEditTextForm" />
