@@ -12,15 +12,21 @@ public interface ListClienteContrato {
 
     interface ListClientePresenter{
         boolean deleteClienteRecyrcleView(int idCliente, int idEndereco);
+
         void editarClienteRecyclerView(ClienteModel clienteModel);
+
         void setView(ListClienteView view);
+
         List<ClienteModel> readCliente();
+
         void dataRecyclerView();
     }
 
     interface ListClienteView{
         Context getContext();
+
         void populationRecyclerView();
+
         RecyclerView getRecyclerView();
     }
 }

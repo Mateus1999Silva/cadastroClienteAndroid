@@ -15,6 +15,7 @@ public interface MapClienteContrato {
 
     interface MapClientePresenter{
         void setView(MapClienteView view);
+
         void map(String endereco, GoogleMap map);
     }
 

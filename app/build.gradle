@@ -27,9 +27,14 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    apply plugin: 'com.android.application'
+    preBuild.dependsOn('checkstyle')
+    assemble.dependsOn('lint')
+    check.dependsOn('checkstyle')
+
     apply plugin: 'kotlin-android'
+    apply plugin: 'checkstyle'
 }
+
 
 dependencies {
     implementation 'br.com.jansenfelipe:androidmask:1.0.1'
